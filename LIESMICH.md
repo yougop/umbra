@@ -109,6 +109,27 @@ was funktioniert. Der Bildoptimierer des Hosters lieferte eine Textur mit
 Status 200 und richtigem Content-Type aus, die er auf ein Viertel
 heruntergerechnet hatte — nur die zweite Frage findet so etwas.
 
+### Der Zwischenspeicher des Hosters
+
+Der CDN von Hostinger hält HTML zehn Minuten, JSON und Bilder eine Stunde, und
+zwar **je Kompression (Accept-Encoding) eine eigene Fassung**. Am 14.10.2026
+lieferte er nach dem Umstieg auf das v2-Startpaket an curl ohne Kompression
+schon den neuen Stand, an Browser (br) noch den alten – und für `frame.json`,
+das in v1 und v2 gleich heißt, die alte v1-Fassung. Neues umbra.html plus
+alter Vertrag fragte nach `modell.obj`; als die alten Dateien gelöscht waren,
+startete Umbra leer. Die Website-Sitzung hat sie sofort zurückgelegt.
+
+Seither:
+
+- Das Startpaket wird mit `?stand=<STARTPAKET_STAND>` geholt. Jede Fassung hat
+  damit ihre eigene Adresse, ein neues umbra.html kann keinen alten Vertrag
+  mehr bekommen. **Bei jedem neuen Startpaket hochzählen.**
+- `./pruefe-stand.sh` ruft die Seite in vier Kompressionen ab und meldet
+  GLEICH nur, wenn alle denselben Stand liefern.
+- Alte Startpaket-Dateien werden erst gelöscht, wenn `pruefe-stand.sh` in allen
+  Fassungen GLEICH meldet; erst dann fragt kein ausgeliefertes HTML mehr nach
+  ihnen.
+
 ## Das Nolli-Paket
 
 Ein Paket wird **als Ganzes** geladen – als ZIP oder als ausgepackter Ordner

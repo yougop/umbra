@@ -26,9 +26,19 @@ grep -q '<title>Umbra</title>' "$TMP" || {
   echo "            Titel: $(grep -oE '<title>[^<]*</title>' "$TMP" | head -1)"
   exit 4; }
 
-LIVE=$(md5sum "$TMP" | cut -d' ' -f1)
 HIER=$(md5sum umbra.html | cut -d' ' -f1)
-printf 'online  %s  %s B\n' "${LIVE:0:12}" "$(wc -c < "$TMP")"
-printf 'hier    %s  %s B\n' "${HIER:0:12}" "$(wc -c < umbra.html)"
-if [ "$LIVE" = "$HIER" ]; then echo 'GLEICH — der ausgelieferte Stand ist dieser.'; exit 0
-else echo 'VERSCHIEDEN — online liegt ein anderer Stand.'; exit 1; fi
+printf 'hier            %s  %s B\n' "${HIER:0:12}" "$(wc -c < umbra.html)"
+
+# **Jede Kompression einzeln.** Der CDN des Hosters hält je Accept-Encoding eine
+# eigene Fassung. Am 14.10.2026 bekam curl ohne Kompression schon den neuen
+# Stand, ein Browser (br) noch den alten – „GLEICH" war richtig gemessen und
+# trotzdem falsch, weil es nicht das maß, was Besucher bekommen.
+ALLE=0
+for KODIERUNG in identity gzip br "gzip, deflate, br, zstd"; do
+  curl -s --compressed -H "Accept-Encoding: $KODIERUNG" -o "$TMP" --max-time 30 "$ADRESSE" || { echo "NICHT ERREICHBAR  [$KODIERUNG]"; exit 2; }
+  LIVE=$(md5sum "$TMP" | cut -d' ' -f1)
+  printf 'online %-8s %s  %s B\n' "${KODIERUNG%%,*}$([ "${KODIERUNG#*,}" != "$KODIERUNG" ] && echo '+')" "${LIVE:0:12}" "$(wc -c < "$TMP")"
+  [ "$LIVE" = "$HIER" ] || ALLE=1
+done
+if [ "$ALLE" = 0 ]; then echo 'GLEICH — jede Kompressionsfassung liefert diesen Stand.'; exit 0
+else echo 'VERSCHIEDEN — mindestens eine Fassung liefert einen anderen Stand.'; exit 1; fi

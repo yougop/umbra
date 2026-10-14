@@ -2110,6 +2110,16 @@ const STARTPAKET = 'modelle/';
 // Seit dem 14.10.2026 im Datenvertrag v2 (englische Namen): Damit läuft bei
 // jedem Start derselbe Weg, den ein frisches Nolli-Paket nimmt. Das v1-Paket
 // vom 17.09.2026 liegt als Prüfmuster unter ~/projects/archiv/.
+//
+// **Jede Fassung des Startpakets hat ihre eigene Adresse.** Der CDN des
+// Hosters hält eine Datei bis zu einer Stunde, und zwar je Kompression eine
+// eigene Fassung. `frame.json` heißt in v1 und v2 gleich: Am 14.10.2026 bekam
+// das neue umbra.html aus dem Zwischenspeicher noch den alten v1-Vertrag, fragte
+// darauf nach modell.obj und startete leer, sobald die alte Datei gelöscht war.
+// `no-cache` hilft dagegen nicht – der CDN beantwortet die Nachfrage selbst.
+// Deshalb geht der Stand in die Adresse. **Bei jedem neuen Startpaket
+// hochzählen.**
+const STARTPAKET_STAND = '2026-10-14';
 const STARTPAKET_DATEIEN = [
   'frame.json',
   'model.obj',
@@ -3467,7 +3477,7 @@ async function vorgabeModelleLaden() {
     // 529 kB des Modells wandern also weiterhin nur einmal über die Leitung.
     // Sechs Rückfragen beim Start sind der Preis dafür, dass gezeigt wird,
     // was auf dem Server liegt.
-    const antwort = await fetch(STARTPAKET + name, { cache: 'no-cache' });
+    const antwort = await fetch(`${STARTPAKET}${name}?stand=${STARTPAKET_STAND}`, { cache: 'no-cache' });
     if (!antwort.ok) throw new Error(`${name} → ${antwort.status}`);
     return antwort.blob();
   };
