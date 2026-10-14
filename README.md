@@ -142,11 +142,8 @@ schrift/            Satoshi and JetBrains Mono, the same cuts as Nolli
 modelle/            starter package: HafenCity, Hamburg (Nolli contract v2)
   hcu-demo/         older HafenCity University models, not loaded at start
 docs/               screenshots for this README
-bilder/             screenshots for the project page
-LIESMICH.md         working notes in German: decisions, numbers, deployment
-PRODUCT.md          product brief (German)
 DESIGN.md           design system (German)
-.impeccable/        design direction and contract for the Impeccable workflow
+pruefe-*.sh, pruefe-sprache.mjs, package.json   check scripts (see above)
 ```
 
 The code and its comments are written in German; the interface is bilingual.

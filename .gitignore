@@ -5,8 +5,11 @@ node_modules/
 *.vor-*
 *.bak
 
-# Prüfbilder des Impeccable-Werkzeugs (59 MB), bleiben lokal
-.impeccable/review/
+# Entstehung: bleibt lokal, gehört nicht ins Repo
+.impeccable/
+PRODUCT.md
+LIESMICH.md
+bilder/
 
 # bleibt lokal
 CLAUDE.md
