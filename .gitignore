@@ -1,0 +1,13 @@
+node_modules/
+*.log
+
+# Sicherungen und Zwischenstände gehören nach ~/projects/archiv/
+*.vor-*
+*.bak
+
+# Prüfbilder des Impeccable-Werkzeugs (59 MB), bleiben lokal
+.impeccable/review/
+
+# bleibt lokal
+CLAUDE.md
+.claude/

@@ -1,0 +1,337 @@
+{
+  "nolli": "1",
+  "schritt": 1,
+  "gitter": {
+    "proj4": "+proj=tmerc +lat_0=0 +lon_0=10.0049000 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs",
+    "mittelmeridian": 10.0049
+  },
+  "bbox_gitter": [
+    -800,
+    5934151.1,
+    800,
+    5935351.1
+  ],
+  "utm": {
+    "epsg": 32632,
+    "bbox": [
+      565801.9,
+      5932235.9,
+      567384.3,
+      5933457.9
+    ]
+  },
+  "bbox_wgs84": {
+    "west": 9.992831,
+    "sued": 53.534908,
+    "ost": 10.016966,
+    "nord": 53.54569
+  },
+  "breite_m": 1600,
+  "hoehe_m": 1200,
+  "flaeche_ha": 192,
+  "seitenverhaeltnis": "4:3",
+  "pixel_breite": 4096,
+  "pixel_hoehe": 3072,
+  "meter_pro_pixel": 0.390625,
+  "restkonvergenz_grad": 0.0097,
+  "pruefpixel_12m": 30.7,
+  "google": {
+    "mitte": "53.540299,10.004898",
+    "zoom": 15,
+    "karte": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=roadmap",
+    "luftbild": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=satellite",
+    "gelaende": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=terrain",
+    "strassenansicht": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=53.540299,10.004898",
+    "suche": "https://www.google.com/maps/search/?api=1&query=53.540299,10.004898",
+    "erde": "https://earth.google.com/web/@53.540299,10.004898,0a,2560d,35y,0h,45t,0r"
+  },
+  "quelle": "openstreetmap",
+  "lizenz": "ODbL, © OpenStreetMap-Mitwirkende",
+  "erstellt": "2026-09-17T08:35:52.568Z",
+  "ort": {
+    "name": "HafenCity",
+    "wo": "Hamburg"
+  },
+  "objekte": 2894,
+  "gestrichen": [],
+  "erhalt": [],
+  "baeume": {
+    "vorgabe_krone_m": 6,
+    "stammhoehe_m": 3,
+    "silhouette_faktor": 1.1456
+  },
+  "baukoerper": {
+    "gebaeude": 338,
+    "teile": 286
+  },
+  "hoehen_echt_anteil": 0.53,
+  "hoehen_herkunft": {
+    "gemessen": 331,
+    "aus_geschossen": 189,
+    "annahme_8m": 104,
+    "grundflaeche_m2": {
+      "gemessen": 287146,
+      "aus_geschossen": 178572,
+      "annahme_8m": 186876
+    }
+  },
+  "hoehen_herkunft_gebaeude": {
+    "gemessen": 116,
+    "aus_geschossen": 129,
+    "annahme_8m": 93,
+    "grundflaeche_m2": {
+      "gemessen": 85931,
+      "aus_geschossen": 140355,
+      "annahme_8m": 179238
+    }
+  },
+  "dateien": {
+    "paket": "nolli_hafencity_2026-09-17.zip",
+    "modell": "nolli_hafencity_2026-09-17.obj",
+    "zeichnung": "nolli_hafencity_2026-09-17.dxf",
+    "aufsicht": "nolli_hafencity_2026-09-17_modell3d_4096px.png",
+    "aufsicht_grund_im_paket": "bilder/modellaufsicht_grund.webp"
+  },
+  "vorbehalte": [
+    "daecher_flach"
+  ],
+  "flaechen_m2": {
+    "wasser": 3732883,
+    "bau": 307173,
+    "gebaeude": 652594,
+    "gruen": 138710
+  },
+  "verkehrsflaeche_m2_geschaetzt": {
+    "fahrbahn": 377492,
+    "wege": 111012
+  },
+  "paket": {
+    "modell": "modell.obj",
+    "modell_namenszusaetze": {
+      "_hoehe_geschaetzt": "Höhe aus Geschosszahl oder Annahme, nicht gemessen",
+      "_ausserhalb": "Teil vor der Rahmenkante, gehört zum gleichnamigen Körper"
+    },
+    "zeichnung": "zeichnung.dxf",
+    "bildformat": "image/webp, verlustfrei",
+    "bilder": [
+      {
+        "datei": "bilder/schwarzplan.webp",
+        "darstellung": "schwarzplan",
+        "was": "Figur und Grund. Der Regelfall, und was ein Bildmodell am besten liest.",
+        "baeume": true
+      },
+      {
+        "datei": "bilder/schwarzplan_grund.webp",
+        "darstellung": "schwarzplan",
+        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
+        "baeume": false
+      },
+      {
+        "datei": "bilder/invertiert.webp",
+        "darstellung": "invertiert",
+        "was": "Weiß auf Schwarz. Zeigt den öffentlichen Raum als Figur statt als Rest.",
+        "baeume": true
+      },
+      {
+        "datei": "bilder/invertiert_grund.webp",
+        "darstellung": "invertiert",
+        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
+        "baeume": false
+      },
+      {
+        "datei": "bilder/linie.webp",
+        "darstellung": "linie",
+        "was": "Nur Konturen, weiß hinterlegt. Für Plots und für die Kantenerkennung.",
+        "baeume": true
+      },
+      {
+        "datei": "bilder/linie_grund.webp",
+        "darstellung": "linie",
+        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
+        "baeume": false
+      },
+      {
+        "datei": "bilder/nutzung.webp",
+        "darstellung": "nutzung",
+        "was": "Gebäude nach Art eingefärbt. Arbeitet dem Programmschritt vor.",
+        "baeume": true
+      },
+      {
+        "datei": "bilder/nutzung_grund.webp",
+        "darstellung": "nutzung",
+        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
+        "baeume": false
+      },
+      {
+        "datei": "bilder/modellaufsicht.webp",
+        "darstellung": "modellaufsicht",
+        "was": "Das 3D-Modell von oben. Farben und Kontraste der Raumansicht, Baukörper plastisch mit Schlagschatten aus der Geschosszahl.",
+        "baeume": true
+      },
+      {
+        "datei": "bilder/modellaufsicht_grund.webp",
+        "darstellung": "modellaufsicht",
+        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
+        "baeume": false
+      },
+      {
+        "datei": "bilder/weissmodell.webp",
+        "darstellung": "weissmodell",
+        "was": "Aufsicht auf das 3D-Modell: plastische Baukörper mit Schlagschatten und Fußsaum, unter derselben Sonne. Höhen aus der Geschosszahl.",
+        "baeume": true
+      },
+      {
+        "datei": "bilder/weissmodell_grund.webp",
+        "darstellung": "weissmodell",
+        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
+        "baeume": false
+      },
+      {
+        "datei": "bilder/datentiefe.webp",
+        "darstellung": "datentiefe",
+        "was": "Wie gut OpenStreetMap den Ausschnitt kennt. Jedes Objekt nach der Zahl seiner Merkmale eingefärbt, von blass bis dicht. Kein Gütesiegel, sondern eine Auskunft darüber, worauf die späteren Zahlen stehen.",
+        "baeume": true
+      },
+      {
+        "datei": "bilder/datentiefe_grund.webp",
+        "darstellung": "datentiefe",
+        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
+        "baeume": false
+      },
+      {
+        "datei": "bilder/3d-modell.webp",
+        "darstellung": "modell3d",
+        "was": "Die Raumansicht, wie sie gerade steht",
+        "baeume": true
+      }
+    ],
+    "daten": [
+      {
+        "datei": "daten/koerper.json",
+        "was": "Baukörper mit Höhe, Herkunft der Höhe, Denkmalstatus und Adresse",
+        "eintraege": 624,
+        "felder": [
+          "osm_id",
+          "art",
+          "kreuzt_rahmen",
+          "hoehe_m",
+          "quelle",
+          "geschosse",
+          "denkmal",
+          "adresse",
+          "nutzung",
+          "klasse",
+          "zustand"
+        ]
+      },
+      {
+        "datei": "daten/netz.json",
+        "was": "Straßennetz als Graph. Erst die Knoten, dann die Kanten.",
+        "eintraege": 4094,
+        "felder": [
+          "knoten",
+          "von",
+          "bis",
+          "laenge_m",
+          "weg",
+          "name",
+          "highway",
+          "maxspeed",
+          "lanes",
+          "oneway",
+          "surface",
+          "sidewalk:left",
+          "sidewalk:right",
+          "cycleway:left",
+          "cycleway:right",
+          "punkte",
+          "bridge",
+          "layer",
+          "sidewalk:both",
+          "sidewalk",
+          "cycleway:both",
+          "access",
+          "width",
+          "service",
+          "cycleway",
+          "tunnel"
+        ]
+      },
+      {
+        "datei": "daten/punkte.json",
+        "was": "Läden, Lokale, Praxen, Büros, Freizeit, Möblierung — mit Gruppe",
+        "eintraege": 1899,
+        "felder": [
+          "id",
+          "x",
+          "y",
+          "art",
+          "gruppe",
+          "name",
+          "quelle"
+        ]
+      },
+      {
+        "datei": "daten/haltestellen.json",
+        "was": "Haltestellen mit den Linien, die dort halten",
+        "eintraege": 80,
+        "felder": [
+          "id",
+          "x",
+          "y",
+          "name",
+          "art",
+          "linien"
+        ]
+      },
+      {
+        "datei": "daten/linien.json",
+        "was": "Die Linien selbst, mit Art und Richtung",
+        "eintraege": 8,
+        "felder": [
+          "ref",
+          "art",
+          "name",
+          "von",
+          "nach"
+        ]
+      },
+      {
+        "datei": "daten/flaechen.json",
+        "was": "Nutzungsflächen",
+        "eintraege": 55,
+        "felder": [
+          "id",
+          "art",
+          "flaeche_m2",
+          "ringe",
+          "name"
+        ]
+      },
+      {
+        "datei": "daten/rest.json",
+        "was": "Alles Übrige aus OpenStreetMap, mit seinen Merkmalen",
+        "eintraege": 5852,
+        "felder": [
+          "id",
+          "typ",
+          "x",
+          "y",
+          "tags",
+          "punkte"
+        ]
+      },
+      {
+        "datei": "daten/baeume.json",
+        "was": "Einzelbäume mit Ort und Kronendurchmesser. `gemessen` sagt, ob der Durchmesser aus OpenStreetMap stammt oder die Vorgabe von 6 m ist.",
+        "eintraege": 1781,
+        "felder": [
+          "x",
+          "y",
+          "krone_m",
+          "gemessen"
+        ]
+      }
+    ]
+  }
+}

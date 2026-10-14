@@ -1,0 +1,12 @@
+{
+  "name": "umbra",
+  "private": true,
+  "description": "Sunlight, irradiation and wind exposure on an urban model, in the browser.",
+  "type": "module",
+  "scripts": {
+    "pruefe-sprache": "node pruefe-sprache.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "25.10.0"
+  }
+}
