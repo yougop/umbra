@@ -26,14 +26,13 @@ python3 -m http.server 8777
 ```
 umbra.html          alles: Aufbau, Gestalt, Rechenkern (eine Datei, kein Build)
 schrift/            Satoshi 400/500/700, JetBrains Mono – dieselben Schnitte wie Nolli
-modelle/            das Startpaket in Nollis eigener Ordnung, lädt beim Start
-  frame.json                     Datenvertrag – wird zuerst gelesen
-  modell.obj                     338 Baukörper
-  bilder/datentiefe.webp             Voreinstellung
-  bilder/modellaufsicht_grund.webp   Aufsicht, 4096 × 3072 px
-  bilder/schwarzplan.webp
-  bilder/linie.webp
-  daten/baeume.json                  1.781 Bäume, aufgelöst: krone_m + gemessen
+modelle/            das Startpaket in Nollis eigener Ordnung (Vertrag v2), lädt beim Start
+  frame.json                         Datenvertrag – wird zuerst gelesen
+  model.obj                          338 Gebäude und 286 Gebäudeteile
+  images/figure_ground_bare.webp     Voreinstellung, 4096 × 3072 px
+  images/top_view_bare.webp          Textur
+  images/line_bare.webp
+  data/trees.json                    1.781 Bäume, aufgelöst: crown_m + measured
   hcu-demo/                      die alten HCU-Dateien, nicht mehr im Startweg
 pruefe-lieferung.sh liest aus umbra.html, was auszuliefern ist
 pruefe-stand.sh     ist der ausgelieferte Stand dieser?
@@ -231,6 +230,17 @@ Ein frisches Paket holen: `zinssmeister.info/app/nolli/` → „HafenCity" (läd
 dem Beispielgebiet, keine Overpass-Abfrage) → Schritt 3 „Ausgeben" → „Paket".
 Das ZIP auspacken, den Inhalt nach `modelle/` legen und die Dateinamen in
 `STARTPAKET_DATEIEN` eintragen – oder einfach das ZIP im Werkzeug laden.
+
+Seit dem 14.10.2026 liegt das Startpaket im Datenvertrag v2: erzeugt mit Nolli
+am selben Tag, HafenCity ohne Gelände, nur die sechs Dateien, die Umbra beim
+Start braucht (2,1 MB statt 3,6 MB). Damit läuft der v2-Leser bei jedem Start
+mit, und der Vorbehalt „Gelände eben“ steht jetzt auch im Startpaket. Die
+Kennwerte sind dieselben wie vorher (338 Gebäude, 116 / 129 / 93, 192 ha). Die
+Bilder weichen an 3–4 % der Pixel ab, ausschließlich an Konturen (im Mittel
+0,12 von 255): andere Kantenglättung, weil das alte Paket in einem Chrome mit
+Grafikkarte entstand und das neue mit SwiftShader. Das v1-Paket vom
+17.09.2026 liegt als Prüfmuster unter `~/projects/archiv/umbra-startpaket-v1-2026-09-17/`
+– damit bleibt der v1-Pfad prüfbar.
 
 ## Was das Modell nicht kann
 

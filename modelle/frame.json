@@ -1,11 +1,12 @@
 {
-  "nolli": "1",
-  "schritt": 1,
-  "gitter": {
+  "contract": "nolli",
+  "contract_version": 2,
+  "step": 1,
+  "grid": {
     "proj4": "+proj=tmerc +lat_0=0 +lon_0=10.0049000 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs",
-    "mittelmeridian": 10.0049
+    "central_meridian": 10.0049
   },
-  "bbox_gitter": [
+  "bbox_grid": [
     -800,
     5934151.1,
     800,
@@ -22,218 +23,220 @@
   },
   "bbox_wgs84": {
     "west": 9.992831,
-    "sued": 53.534908,
-    "ost": 10.016966,
-    "nord": 53.54569
+    "south": 53.534908,
+    "east": 10.016966,
+    "north": 53.54569
   },
-  "breite_m": 1600,
-  "hoehe_m": 1200,
-  "flaeche_ha": 192,
-  "seitenverhaeltnis": "4:3",
-  "pixel_breite": 4096,
-  "pixel_hoehe": 3072,
-  "meter_pro_pixel": 0.390625,
-  "restkonvergenz_grad": 0.0097,
-  "pruefpixel_12m": 30.7,
+  "width_m": 1600,
+  "height_m": 1200,
+  "area_ha": 192,
+  "aspect_ratio": "4:3",
+  "pixel_width": 4096,
+  "pixel_height": 3072,
+  "meters_per_pixel": 0.390625,
+  "residual_convergence_deg": 0.0097,
+  "check_pixels_12m": 30.7,
   "google": {
-    "mitte": "53.540299,10.004898",
+    "center": "53.540299,10.004898",
     "zoom": 15,
-    "karte": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=roadmap",
-    "luftbild": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=satellite",
-    "gelaende": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=terrain",
-    "strassenansicht": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=53.540299,10.004898",
-    "suche": "https://www.google.com/maps/search/?api=1&query=53.540299,10.004898",
-    "erde": "https://earth.google.com/web/@53.540299,10.004898,0a,2560d,35y,0h,45t,0r"
+    "map": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=roadmap",
+    "satellite": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=satellite",
+    "terrain": "https://www.google.com/maps/@?api=1&map_action=map&center=53.540299,10.004898&zoom=15&basemap=terrain",
+    "street_view": "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=53.540299,10.004898",
+    "search": "https://www.google.com/maps/search/?api=1&query=53.540299,10.004898",
+    "earth": "https://earth.google.com/web/@53.540299,10.004898,0a,2560d,35y,0h,45t,0r"
   },
-  "quelle": "openstreetmap",
-  "lizenz": "ODbL, © OpenStreetMap-Mitwirkende",
-  "erstellt": "2026-09-17T08:35:52.568Z",
-  "ort": {
+  "source": "openstreetmap",
+  "license": "ODbL, © OpenStreetMap contributors",
+  "created": "2026-10-14T15:17:54.796Z",
+  "place": {
     "name": "HafenCity",
-    "wo": "Hamburg"
+    "region": "Hamburg"
   },
-  "objekte": 2894,
-  "gestrichen": [],
-  "erhalt": [],
-  "baeume": {
-    "vorgabe_krone_m": 6,
-    "stammhoehe_m": 3,
-    "silhouette_faktor": 1.1456
+  "objects": 2894,
+  "removed": [],
+  "kept": [],
+  "trees": {
+    "default_crown_m": 6,
+    "trunk_height_m": 3,
+    "silhouette_factor": 1.1456
   },
-  "baukoerper": {
-    "gebaeude": 338,
-    "teile": 286
+  "body_count": {
+    "buildings": 338,
+    "parts": 286
   },
-  "hoehen_echt_anteil": 0.53,
-  "hoehen_herkunft": {
-    "gemessen": 331,
-    "aus_geschossen": 189,
-    "annahme_8m": 104,
-    "grundflaeche_m2": {
-      "gemessen": 287146,
-      "aus_geschossen": 178572,
-      "annahme_8m": 186876
+  "measured_height_share": 0.53,
+  "height_origin": {
+    "measured": 331,
+    "from_storeys": 189,
+    "assumed_8m": 104,
+    "footprint_m2": {
+      "measured": 287146,
+      "from_storeys": 178572,
+      "assumed_8m": 186876
     }
   },
-  "hoehen_herkunft_gebaeude": {
-    "gemessen": 116,
-    "aus_geschossen": 129,
-    "annahme_8m": 93,
-    "grundflaeche_m2": {
-      "gemessen": 85931,
-      "aus_geschossen": 140355,
-      "annahme_8m": 179238
+  "height_origin_buildings": {
+    "measured": 116,
+    "from_storeys": 129,
+    "assumed_8m": 93,
+    "footprint_m2": {
+      "measured": 85931,
+      "from_storeys": 140355,
+      "assumed_8m": 179238
     }
   },
-  "dateien": {
-    "paket": "nolli_hafencity_2026-09-17.zip",
-    "modell": "nolli_hafencity_2026-09-17.obj",
-    "zeichnung": "nolli_hafencity_2026-09-17.dxf",
-    "aufsicht": "nolli_hafencity_2026-09-17_modell3d_4096px.png",
-    "aufsicht_grund_im_paket": "bilder/modellaufsicht_grund.webp"
+  "files": {
+    "package": "nolli_hafencity_2026-10-14.zip",
+    "model": "nolli_hafencity_2026-10-14.obj",
+    "drawing": "nolli_hafencity_2026-10-14.dxf",
+    "image": "nolli_hafencity_2026-10-14_model_3d_4096px.png",
+    "top_view_bare_in_package": "images/top_view_bare.webp"
   },
-  "vorbehalte": [
-    "daecher_flach"
+  "caveats": [
+    "roofs_flat",
+    "terrain_flat"
   ],
-  "flaechen_m2": {
-    "wasser": 3732883,
-    "bau": 307173,
-    "gebaeude": 652594,
-    "gruen": 138710
+  "terrain": null,
+  "areas_m2": {
+    "water": 3732883,
+    "construction": 307173,
+    "buildings": 652594,
+    "green": 138710
   },
-  "verkehrsflaeche_m2_geschaetzt": {
-    "fahrbahn": 377492,
-    "wege": 111012
+  "traffic_area_m2_estimated": {
+    "carriageway": 377492,
+    "paths": 111012
   },
-  "paket": {
-    "modell": "modell.obj",
-    "modell_namenszusaetze": {
-      "_hoehe_geschaetzt": "Höhe aus Geschosszahl oder Annahme, nicht gemessen",
-      "_ausserhalb": "Teil vor der Rahmenkante, gehört zum gleichnamigen Körper"
+  "package": {
+    "model": "model.obj",
+    "model_name_suffixes": {
+      "_height_estimated": "Height from the number of storeys or assumed, not measured",
+      "_outside": "Part outside the frame edge, belongs to the body of the same name without this suffix"
     },
-    "zeichnung": "zeichnung.dxf",
-    "bildformat": "image/webp, verlustfrei",
-    "bilder": [
+    "drawing": "drawing.dxf",
+    "image_format": "image/webp, lossless",
+    "images": [
       {
-        "datei": "bilder/schwarzplan.webp",
-        "darstellung": "schwarzplan",
-        "was": "Figur und Grund. Der Regelfall, und was ein Bildmodell am besten liest.",
-        "baeume": true
+        "file": "images/figure_ground.webp",
+        "style": "figure_ground",
+        "description": "Figure and ground. The standard case, and what an image model reads best.",
+        "trees": true
       },
       {
-        "datei": "bilder/schwarzplan_grund.webp",
-        "darstellung": "schwarzplan",
-        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
-        "baeume": false
+        "file": "images/figure_ground_bare.webp",
+        "style": "figure_ground",
+        "description": "The same extent without buildings and without trees, as a ground texture under a model of your own",
+        "trees": false
       },
       {
-        "datei": "bilder/invertiert.webp",
-        "darstellung": "invertiert",
-        "was": "Weiß auf Schwarz. Zeigt den öffentlichen Raum als Figur statt als Rest.",
-        "baeume": true
+        "file": "images/inverted.webp",
+        "style": "inverted",
+        "description": "White on black. Shows public space as the figure instead of the remainder.",
+        "trees": true
       },
       {
-        "datei": "bilder/invertiert_grund.webp",
-        "darstellung": "invertiert",
-        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
-        "baeume": false
+        "file": "images/inverted_bare.webp",
+        "style": "inverted",
+        "description": "The same extent without buildings and without trees, as a ground texture under a model of your own",
+        "trees": false
       },
       {
-        "datei": "bilder/linie.webp",
-        "darstellung": "linie",
-        "was": "Nur Konturen, weiß hinterlegt. Für Plots und für die Kantenerkennung.",
-        "baeume": true
+        "file": "images/line.webp",
+        "style": "line",
+        "description": "Outlines only, on white. For plots and for edge detection.",
+        "trees": true
       },
       {
-        "datei": "bilder/linie_grund.webp",
-        "darstellung": "linie",
-        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
-        "baeume": false
+        "file": "images/line_bare.webp",
+        "style": "line",
+        "description": "The same extent without buildings and without trees, as a ground texture under a model of your own",
+        "trees": false
       },
       {
-        "datei": "bilder/nutzung.webp",
-        "darstellung": "nutzung",
-        "was": "Gebäude nach Art eingefärbt. Arbeitet dem Programmschritt vor.",
-        "baeume": true
+        "file": "images/use.webp",
+        "style": "use",
+        "description": "Buildings coloured by type. Prepares the programme step.",
+        "trees": true
       },
       {
-        "datei": "bilder/nutzung_grund.webp",
-        "darstellung": "nutzung",
-        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
-        "baeume": false
+        "file": "images/use_bare.webp",
+        "style": "use",
+        "description": "The same extent without buildings and without trees, as a ground texture under a model of your own",
+        "trees": false
       },
       {
-        "datei": "bilder/modellaufsicht.webp",
-        "darstellung": "modellaufsicht",
-        "was": "Das 3D-Modell von oben. Farben und Kontraste der Raumansicht, Baukörper plastisch mit Schlagschatten aus der Geschosszahl.",
-        "baeume": true
+        "file": "images/top_view.webp",
+        "style": "top_view",
+        "description": "The 3D model from above. Colours and contrast of the 3D view, buildings modelled with cast shadows from the number of storeys.",
+        "trees": true
       },
       {
-        "datei": "bilder/modellaufsicht_grund.webp",
-        "darstellung": "modellaufsicht",
-        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
-        "baeume": false
+        "file": "images/top_view_bare.webp",
+        "style": "top_view",
+        "description": "The same extent without buildings and without trees, as a ground texture under a model of your own",
+        "trees": false
       },
       {
-        "datei": "bilder/weissmodell.webp",
-        "darstellung": "weissmodell",
-        "was": "Aufsicht auf das 3D-Modell: plastische Baukörper mit Schlagschatten und Fußsaum, unter derselben Sonne. Höhen aus der Geschosszahl.",
-        "baeume": true
+        "file": "images/white_model.webp",
+        "style": "white_model",
+        "description": "Top view of the 3D model: modelled buildings with cast shadows and a base line, under the same sun. Heights from the number of storeys.",
+        "trees": true
       },
       {
-        "datei": "bilder/weissmodell_grund.webp",
-        "darstellung": "weissmodell",
-        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
-        "baeume": false
+        "file": "images/white_model_bare.webp",
+        "style": "white_model",
+        "description": "The same extent without buildings and without trees, as a ground texture under a model of your own",
+        "trees": false
       },
       {
-        "datei": "bilder/datentiefe.webp",
-        "darstellung": "datentiefe",
-        "was": "Wie gut OpenStreetMap den Ausschnitt kennt. Jedes Objekt nach der Zahl seiner Merkmale eingefärbt, von blass bis dicht. Kein Gütesiegel, sondern eine Auskunft darüber, worauf die späteren Zahlen stehen.",
-        "baeume": true
+        "file": "images/data_depth.webp",
+        "style": "data_depth",
+        "description": "How well OpenStreetMap knows the extent. Each object coloured by the number of its tags, from faint to dense. Not a seal of quality, but a statement of what the later figures rest on.",
+        "trees": true
       },
       {
-        "datei": "bilder/datentiefe_grund.webp",
-        "darstellung": "datentiefe",
-        "was": "Derselbe Ausschnitt ohne Baukörper und ohne Bäume, als Bodentextur unter ein eigenes Modell",
-        "baeume": false
+        "file": "images/data_depth_bare.webp",
+        "style": "data_depth",
+        "description": "The same extent without buildings and without trees, as a ground texture under a model of your own",
+        "trees": false
       },
       {
-        "datei": "bilder/3d-modell.webp",
-        "darstellung": "modell3d",
-        "was": "Die Raumansicht, wie sie gerade steht",
-        "baeume": true
+        "file": "images/model_3d.webp",
+        "style": "model_3d",
+        "description": "The 3D view as it currently stands",
+        "trees": true
       }
     ],
-    "daten": [
+    "data": [
       {
-        "datei": "daten/koerper.json",
-        "was": "Baukörper mit Höhe, Herkunft der Höhe, Denkmalstatus und Adresse",
-        "eintraege": 624,
-        "felder": [
+        "file": "data/bodies.json",
+        "description": "Building bodies with height, origin of the height, heritage status and address",
+        "entries": 624,
+        "fields": [
           "osm_id",
-          "art",
-          "kreuzt_rahmen",
-          "hoehe_m",
-          "quelle",
-          "geschosse",
-          "denkmal",
-          "adresse",
-          "nutzung",
-          "klasse",
-          "zustand"
+          "kind",
+          "crosses_frame",
+          "height_m",
+          "source",
+          "storeys",
+          "heritage",
+          "address",
+          "osm_building",
+          "use_class",
+          "state"
         ]
       },
       {
-        "datei": "daten/netz.json",
-        "was": "Straßennetz als Graph. Erst die Knoten, dann die Kanten.",
-        "eintraege": 4094,
-        "felder": [
-          "knoten",
-          "von",
-          "bis",
-          "laenge_m",
-          "weg",
+        "file": "data/network.json",
+        "description": "Street network as a graph. First the nodes, then the edges.",
+        "entries": 4094,
+        "fields": [
+          "nodes",
+          "from",
+          "to",
+          "length_m",
+          "way",
           "name",
           "highway",
           "maxspeed",
@@ -244,7 +247,7 @@
           "sidewalk:right",
           "cycleway:left",
           "cycleway:right",
-          "punkte",
+          "points",
           "bridge",
           "layer",
           "sidewalk:both",
@@ -258,78 +261,78 @@
         ]
       },
       {
-        "datei": "daten/punkte.json",
-        "was": "Läden, Lokale, Praxen, Büros, Freizeit, Möblierung — mit Gruppe",
-        "eintraege": 1899,
-        "felder": [
+        "file": "data/points.json",
+        "description": "Shops, food and drink, practices, offices, leisure, street furniture — with group",
+        "entries": 1899,
+        "fields": [
           "id",
           "x",
           "y",
-          "art",
-          "gruppe",
+          "kind",
+          "group",
           "name",
-          "quelle"
+          "source"
         ]
       },
       {
-        "datei": "daten/haltestellen.json",
-        "was": "Haltestellen mit den Linien, die dort halten",
-        "eintraege": 80,
-        "felder": [
+        "file": "data/stops.json",
+        "description": "Public transport stops with the lines that serve them",
+        "entries": 80,
+        "fields": [
           "id",
           "x",
           "y",
           "name",
-          "art",
-          "linien"
+          "kind",
+          "lines"
         ]
       },
       {
-        "datei": "daten/linien.json",
-        "was": "Die Linien selbst, mit Art und Richtung",
-        "eintraege": 8,
-        "felder": [
+        "file": "data/lines.json",
+        "description": "The lines themselves, with kind and direction",
+        "entries": 8,
+        "fields": [
           "ref",
-          "art",
+          "kind",
           "name",
-          "von",
-          "nach"
+          "from",
+          "towards"
         ]
       },
       {
-        "datei": "daten/flaechen.json",
-        "was": "Nutzungsflächen",
-        "eintraege": 55,
-        "felder": [
+        "file": "data/land_use.json",
+        "description": "Land-use areas",
+        "entries": 55,
+        "fields": [
           "id",
-          "art",
-          "flaeche_m2",
-          "ringe",
+          "kind",
+          "area_m2",
+          "rings",
           "name"
         ]
       },
       {
-        "datei": "daten/rest.json",
-        "was": "Alles Übrige aus OpenStreetMap, mit seinen Merkmalen",
-        "eintraege": 5852,
-        "felder": [
+        "file": "data/other.json",
+        "description": "Everything else from OpenStreetMap, with its tags",
+        "entries": 5852,
+        "fields": [
           "id",
-          "typ",
+          "type",
           "x",
           "y",
           "tags",
-          "punkte"
+          "points"
         ]
       },
       {
-        "datei": "daten/baeume.json",
-        "was": "Einzelbäume mit Ort und Kronendurchmesser. `gemessen` sagt, ob der Durchmesser aus OpenStreetMap stammt oder die Vorgabe von 6 m ist.",
-        "eintraege": 1781,
-        "felder": [
+        "file": "data/trees.json",
+        "description": "Individual trees with position and crown diameter. `measured` says whether the diameter comes from OpenStreetMap or is the default of 6 m.",
+        "entries": 1781,
+        "fields": [
           "x",
           "y",
-          "krone_m",
-          "gemessen"
+          "crown_m",
+          "measured"
         ]
       }
     ]

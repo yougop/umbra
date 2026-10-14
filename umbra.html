@@ -2092,7 +2092,7 @@ const ORT_VORGABE = { lat: 53.5410, lon: 10.0102, get name() { return tx.kopf.or
 // der auseinanderlaufen könnte.
 //
 // Beim Start geholt werden nur Vertrag, Modell und die Vorgabetextur — rund
-// 1,9 MB. Die übrigen Darstellungen liegen daneben und werden erst geholt,
+// 1 MB (v2-Paket vom 14.10.2026). Die übrigen Darstellungen liegen daneben und werden erst geholt,
 // wenn jemand sie wählt. Deshalb kostet die Auswahl nichts, solange niemand
 // sie benutzt.
 //
@@ -2107,13 +2107,16 @@ const ORT_VORGABE = { lat: 53.5410, lon: 10.0102, get name() { return tx.kopf.or
 // Paketprüfung verglich die gelieferten Bildpunkte mit den 4096 × 3072 des
 // Datenvertrags und warnte den Besucher, das Paket passe nicht zusammen.
 const STARTPAKET = 'modelle/';
+// Seit dem 14.10.2026 im Datenvertrag v2 (englische Namen): Damit läuft bei
+// jedem Start derselbe Weg, den ein frisches Nolli-Paket nimmt. Das v1-Paket
+// vom 17.09.2026 liegt als Prüfmuster unter ~/projects/archiv/.
 const STARTPAKET_DATEIEN = [
   'frame.json',
-  'modell.obj',
-  'bilder/modellaufsicht_grund.webp',
-  'bilder/schwarzplan_grund.webp',
-  'bilder/linie_grund.webp',
-  'daten/baeume.json',
+  'model.obj',
+  'images/top_view_bare.webp',
+  'images/figure_ground_bare.webp',
+  'images/line_bare.webp',
+  'data/trees.json',
 ];
 
 // Die drei Dinge, die geladen werden können – einzeln, nicht nur als Paket.

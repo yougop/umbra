@@ -139,7 +139,7 @@ from jsDelivr.
 ```
 umbra.html          everything: markup, styles, sun and ray-casting core, both languages
 schrift/            Satoshi and JetBrains Mono, the same cuts as Nolli
-modelle/            starter package: HafenCity, Hamburg (Nolli contract v1)
+modelle/            starter package: HafenCity, Hamburg (Nolli contract v2)
   hcu-demo/         older HafenCity University models, not loaded at start
 docs/               screenshots for this README
 bilder/             screenshots for the project page
