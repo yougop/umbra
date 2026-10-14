@@ -13,7 +13,7 @@ account and no API key. Your files are read in the browser and sent nowhere.
 **Live:** [zinssmeister.info/app/umbra](https://zinssmeister.info/app/umbra/) ·
 project page [zinssmeister.info/umbra](https://zinssmeister.info/umbra)
 
-![Sheet 3 · Envelope: irradiation on every façade and roof, HafenCity Hamburg](docs/3-envelope.png)
+![Sheet 1 · Sun position: sunlight check against DIN 5034-1 and the series of four times of day, HafenCity Hamburg](docs/1-sun-position.png)
 
 ## Where it sits
 
@@ -34,10 +34,10 @@ irradiation.
 | **4 · Urban space** | What does the ground between the buildings receive on a hot day? | Direct sun where it reaches, plus diffuse radiation weighted by the visible share of sky (72 directions). Hourly values for the hottest day of last summer from Open-Meteo; any other day can be entered. Tree crowns attenuate with an assumed transmission (25 % by default). Also shows the sky view, a proxy for night-time cooling. |
 | **5 · Wind exposure** | How open is a point to the wind that actually blows here? | The free fetch in 16 directions, weighted by the energy (v³) of a measured wind rose for the past year from Open-Meteo, at 1.5 m above ground. |
 
-![Sheet 1 · Sun position with the DIN 5034-1 check](docs/1-sun-position.png)
 ![Sheet 2 · Sun path over the year](docs/2-sun-path.png)
-![Sheet 4 · Urban space: radiation load on a hot day](docs/4-urban-space.png)
-![Sheet 5 · Wind exposure](docs/5-wind.png)
+![Sheet 3 · Envelope: irradiation on every façade and roof](docs/3-envelope.png)
+![Sheet 4 · Urban space: radiation load on a hot day, with markers](docs/4-urban-space.png)
+![Sheet 5 · Wind exposure, with markers](docs/5-wind.png)
 
 Every sheet can be exported as a PNG or as a WebM film over the day or the
 year, always with a footer of place, time, sun position, scale and sheet —
