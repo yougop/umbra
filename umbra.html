@@ -2479,8 +2479,13 @@ function nolliVertragV1(v) {
 // überall seine Textur tragen kann. Umbra hat seinen eigenen Boden; die Platte
 // stünde sonst als Körper in der Szene, würfe Schatten und zählte Dreiecke.
 // Sie fällt deshalb immer weg, nicht nur auf dem Hang.
+//
+// Seit Nolli e91306f (19.10.2026) stehen auch die Baumkronen als ein Körper
+// `o trees` darin. Umbra zeichnet seine Bäume aus `data/trees.json` und
+// rechnet ihre Durchlässigkeit selbst; als Körper stünden sie doppelt und
+// würfen undurchlässige Schatten. Auch sie fallen deshalb immer weg.
 function nolliObjEben(t) {
-  t = nolliGelaendeWeg(t);
+  t = nolliBeiwerkWeg(t);
   if (!/^# Z: metres above sea level/m.test(t)) return t;
   const aus = [];
   let block = [];
@@ -2500,15 +2505,16 @@ function nolliObjEben(t) {
   return aus.join('\n');
 }
 
-// Den Körper `terrain` aus einem OBJ nehmen. Nur seine Flächen fallen weg:
-// Die Punkte bleiben stehen, denn OBJ zählt sie über die ganze Datei, und
-// ein Körper dahinter verwiese sonst auf die falschen. Ein Körper ohne
-// Flächen legt OBJLoader gar nicht erst an.
-function nolliGelaendeWeg(t) {
-  if (!/^o terrain\b/m.test(t)) return t;
+// Die Körper `terrain` und `trees` aus einem OBJ nehmen. Nur ihre Flächen
+// fallen weg: Die Punkte bleiben stehen, denn OBJ zählt sie über die ganze
+// Datei, und ein Körper dahinter verwiese sonst auf die falschen. Ein Körper
+// ohne Flächen legt OBJLoader gar nicht erst an.
+const NOLLI_BEIWERK = /^o (terrain|trees)\s*$/;
+function nolliBeiwerkWeg(t) {
+  if (!/^o (terrain|trees)\s*$/m.test(t)) return t;
   let drin = false;
   return t.split('\n').filter(l => {
-    if (l.startsWith('o ')) drin = /^o terrain\b/.test(l);
+    if (l.startsWith('o ')) drin = NOLLI_BEIWERK.test(l);
     return !(drin && l.startsWith('f '));
   }).join('\n');
 }
