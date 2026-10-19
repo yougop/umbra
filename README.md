@@ -88,6 +88,10 @@ Umbra reads `frame.json` first: it sets location, frame, scale and
 provenance, and checks that the model, the top view and the contract belong
 together (pixel size, central meridian, origin). Then it loads `model.obj`,
 the bare ground textures (figure-ground, line, texture, …) and the trees.
+If the package has `model_outside.obj` (the parts of buildings beyond the
+frame edge), Umbra loads it too: those parts are invisible but still cast
+shadows into the frame. The `terrain` body is always dropped — Umbra has its
+own ground.
 
 Both contract versions are read. Nolli writes **contract v2** since 14 October
 2026 (`"contract": "nolli", "contract_version": 2`, English field and file

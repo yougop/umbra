@@ -2473,10 +2473,15 @@ function nolliVertragV1(v) {
 // Jeder Körper wird deshalb auf null gesetzt, das Gelände fällt weg. Der
 // Vertrag sagt dazu `terrain_coarse`; eine Verschattung durch den Hang selbst
 // rechnet Umbra damit nicht.
+//
+// Seit Nolli 2281dbc (19.10.2026) steht `o terrain` in **jedem** Modell, ohne
+// Gelände als ebene Platte aus zwei Dreiecken auf z = 0, damit das Modell
+// überall seine Textur tragen kann. Umbra hat seinen eigenen Boden; die Platte
+// stünde sonst als Körper in der Szene, würfe Schatten und zählte Dreiecke.
+// Sie fällt deshalb immer weg, nicht nur auf dem Hang.
 function nolliObjEben(t) {
+  t = nolliGelaendeWeg(t);
   if (!/^# Z: metres above sea level/m.test(t)) return t;
-  const i = t.search(/^o terrain\b/m);
-  if (i >= 0) t = t.slice(0, i);
   const aus = [];
   let block = [];
   const leeren = () => {
@@ -2493,6 +2498,38 @@ function nolliObjEben(t) {
   for (const l of t.split('\n')) { if (l.startsWith('o ')) leeren(); block.push(l); }
   leeren();
   return aus.join('\n');
+}
+
+// Den Körper `terrain` aus einem OBJ nehmen. Nur seine Flächen fallen weg:
+// Die Punkte bleiben stehen, denn OBJ zählt sie über die ganze Datei, und
+// ein Körper dahinter verwiese sonst auf die falschen. Ein Körper ohne
+// Flächen legt OBJLoader gar nicht erst an.
+function nolliGelaendeWeg(t) {
+  if (!/^o terrain\b/m.test(t)) return t;
+  let drin = false;
+  return t.split('\n').filter(l => {
+    if (l.startsWith('o ')) drin = /^o terrain\b/.test(l);
+    return !(drin && l.startsWith('f '));
+  }).join('\n');
+}
+
+// Zwei OBJ zu einem: Die Verweise in Flächen und Linien des zweiten zählen
+// ab dem Ende des ersten weiter. Negative (relative) Verweise bleiben, wie
+// sie sind.
+function objAnhaengen(a, b) {
+  const zahl = { v: 0, vt: 0, vn: 0 };
+  for (const m of a.matchAll(/^(v|vt|vn) /gm)) zahl[m[1]]++;
+  const schieben = (wert, um) => { const n = +wert; return n > 0 ? String(n + um) : wert; };
+  const aus = b.split('\n').map(l => {
+    if (!/^[fl] /.test(l)) return l;
+    const [art, ...ecken] = l.trim().split(/\s+/);
+    return art + ' ' + ecken.map(e => {
+      const [v, vt, vn] = e.split('/');
+      return [schieben(v, zahl.v), vt ? schieben(vt, zahl.vt) : vt, vn ? schieben(vn, zahl.vn) : vn]
+        .filter(x => x !== undefined).join('/');
+    }).join(' ');
+  });
+  return a.replace(/\n?$/, '\n') + aus.join('\n');
 }
 
 // Ein ganzes Paket: Namen zurückführen, JSON beim Holen übersetzen.
@@ -3576,7 +3613,13 @@ function paketZuordnen(namen) {
   const finde = (pruef) => namen.find(n => !n.endsWith('/') && pruef(n.toLowerCase(), ohneOrdner(n).toLowerCase()));
   return {
     vertrag:  finde((voll, d) => d.endsWith('.json') && (d === 'frame.json' || voll.includes('frame'))),
-    modell:   finde((voll, d) => d.endsWith('.obj')),
+    // Das Modell, nicht die Bäume (`trees.obj`) und nicht der Rand vor dem
+    // Rahmen (`model_outside.obj`), die seit Nolli 2281dbc daneben liegen.
+    // Vorher galt die erste OBJ-Datei – je nach Reihenfolge im ZIP wäre das
+    // eine von beiden gewesen.
+    modell:   finde((voll, d) => d === 'modell.obj')
+           || finde((voll, d) => d.endsWith('.obj') && !/(^|_)(outside|ausserhalb|trees|baeume)\.obj$/.test(d)),
+    aussen:   finde((voll, d) => /_(outside|ausserhalb)\.obj$/.test(d)),
     // Die Fassung ohne Baukörper. Die mit ihnen trägt Nollis eingebrannten
     // Schatten aus einer Kunstsonne – zusammen mit dem gerechneten wären es zwei.
     aufsicht: finde((voll, d) => /modellaufsicht_grund\.(png|jpe?g|webp)$/.test(d))
@@ -4009,14 +4052,28 @@ async function paketUebernehmen(hol, namen, quelle, istStart = false) {
   if (!teile.modell)  throw new Error(tx.modell.fehler.keinModell);
 
   const vertragsBlob = await hol(teile.vertrag);
-  if (!vertragUebernehmen(JSON.parse(await vertragsBlob.text())))
+  const vertrag = JSON.parse(await vertragsBlob.text());
+  if (!vertragUebernehmen(vertrag))
     throw new Error(tx.modell.fehler.vertragUnlesbar);
   zustand.quellen.vertrag = `${quelle} › ${anzeige(teile.vertrag)}`;
   bodenSetzen();
   masskette.letzterTag = null;
 
   const modellBlob = await hol(teile.modell);
-  await objAusText(await modellBlob.text(), 'modell', anzeige(teile.modell));
+  let modellText = await modellBlob.text();
+  // **Der Rand vor dem Rahmen.** Seit Nolli 2281dbc (19.10.2026) endet
+  // `model.obj` an der Rahmenkante; die Teile davor (`*_outside`) liegen in
+  // einer eigenen Datei, die der Vertrag unter `package.model_outside` nennt.
+  // Sie gehören in die Rechnung, denn sie werfen Schatten in den Rahmen –
+  // sichtbar sind sie trotzdem nicht (siehe `modellEinsetzen`). Ältere Pakete
+  // haben diese Datei nicht; dort steht alles in model.obj wie bisher.
+  const aussenName = vertrag?.package?.model_outside;
+  const aussen = (aussenName && namen.find(n => n === aussenName || n.endsWith('/' + aussenName))) || teile.aussen;
+  if (aussen) {
+    const aussenBlob = await hol(aussen);
+    if (aussenBlob) modellText = objAnhaengen(modellText, await aussenBlob.text());
+  }
+  await objAusText(modellText, 'modell', anzeige(teile.modell));
 
   darstellungenLesen(namen, hol);
   await baeumeHolen(namen, hol);
@@ -4087,7 +4144,11 @@ function dateiAnbinden(slot, feldId) {
 
       } else {
         if (istObj(datei.name)) {
-          await objAusText(await datei.text(), slot, datei.name);
+          // Ein einzelnes OBJ aus Nolli bekommt dieselbe Behandlung wie im
+          // Paket: Gelände weg, auf die Platte. Fremde OBJ bleiben, wie sie
+          // sind – ein Körper `terrain` aus Rhino ist vielleicht gewollt.
+          const text = await datei.text();
+          await objAusText(/^# Nolli\b/.test(text) ? nolliObjEben(text) : text, slot, datei.name);
         } else {
           const url = URL.createObjectURL(datei);
           await new Promise((fertig, fehlt) => {
