@@ -1303,6 +1303,7 @@ const de = {
     grundlage: 'Grundlage',
     quelle: 'Quelle',
     nichtAngegeben: 'nicht angegeben',
+    ergaenzt: (n) => `${n} Gebäude ergänzt aus`,
     vomVertrag: 'Vom Datenvertrag gemeldet.',
   },
   pruefung: {
@@ -1327,6 +1328,11 @@ const de = {
       lang: 'Das Paket bringt ein Gelände aus einem offenen Höhenmodell mit (rund 25–30 m Raster). Umbra rechnet auf ebener Platte: Jeder Baukörper wird auf null gesetzt, das Gelände selbst fällt weg. Höhenunterschiede zwischen den Häusern und der Hang als Schattenwerfer fehlen in der Rechnung.',
       nachweis: 'Am Hang ist die Verschattung hangabwärts unterschätzt, hangaufwärts überschätzt.',
     },
+    gebaeude_luftbild: {
+      kurz: 'Gebäude aus Luftbild',
+      lang: 'Wo OpenStreetMap keine Gebäude führt, sind welche aus Overture Maps ergänzt, meist maschinell aus Luftbildern erkannte Umrisse. Umriss und Höhe sind dort geschätzt, nicht vermessen; Nebengebäude können fehlen oder mit dem Haupthaus verschmelzen.',
+      nachweis: 'Die Schatten dieser Gebäude sind nur so gut wie die Schätzung ihrer Höhe.',
+    },
     innenhoefe_zugedeckt: {
       kurz: 'Innenhöfe zugedeckt',
       lang: 'Dieses Paket führt Innenhöfe nicht als Löcher; ein Blockrand mit Hof steht als voller Klotz, sein Hof liegt in der Rechnung unter einem Dach. Besonnungswerte im Hof und an Hoffassaden fallen dadurch zu niedrig aus.',
@@ -1336,6 +1342,7 @@ const de = {
   hoehen: {
     gemessen: 'gemessen',
     ausGeschossen: 'aus Geschosszahl',
+    ausLuftbild: 'aus Luftbild geschätzt',
     angenommen: 'auf 8 m angenommen',
     teile: 'Gebäudeteile',
     nichtGezaehlt: 'nicht gezählt',
@@ -1343,13 +1350,13 @@ const de = {
     ueberKoerper: 'Höhen der Körper',
     satzEinfach: 'Jede Schattenlänge der angenommenen Gruppe ist nur so gut wie die Annahme.',
     satzFlaeche: (nA, geb, fA) => `${nA} % der ${geb ? 'Gebäude' : 'Körper'}, aber ${fA} % der Grundfläche stehen auf der Pauschale — jede Schattenlänge dort ist nur so gut wie sie.`,
-    text: (gem, ges, ann, geb) => `${gem} ${geb ? 'Gebäude' : 'Körper'} tragen eine gemessene Höhe aus OSM, ${ges} eine aus der Geschosszahl gerechnete, ${ann} eine Pauschale von acht Metern.`,
+    text: (gem, ges, ann, geb, lb) => `${gem} ${geb ? 'Gebäude' : 'Körper'} tragen eine gemessene Höhe aus OSM, ${ges} eine aus der Geschosszahl gerechnete, ${lb ? `${lb} eine aus Luftbildern geschätzte, ` : ''}${ann} eine Pauschale von acht Metern.`,
     textTeile: (n) => ` Dazu ${n} Gebäudeteile, die mitgerechnet, aber hier nicht mitgezählt sind – sie sitzen in ihren Gebäuden und tragen fast immer eine gemessene Höhe.`,
     textGemischt: ' Gezählt sind Gebäude und Gebäudeteile zusammen; Teile tragen fast immer eine gemessene Höhe, die Aufstellung fällt dadurch günstiger aus als für die Gebäude allein.',
     textFlaeche: (nA, geb, fA, groesser) => ` Das sind ${nA} % der ${geb ? 'Gebäude' : 'Körper'}, aber ${fA} % der Grundfläche${groesser ? ' – die Bauten ohne Merkmale sind im Mittel größer als die vermessenen' : ''}.`,
     textDieser: ' Jede Schattenlänge dieser Gruppe ist nur so gut wie die Annahme.',
     textLetzter: ' Jede Schattenlänge der letzten Gruppe ist nur so gut wie diese Annahme.',
-    koerper: (gem, ges, ann) => `${gem} Körper tragen eine gemessene Höhe aus OSM, ${ges} eine aus der Geschosszahl gerechnete, ${ann} eine Pauschale von acht Metern. Jede Schattenlänge der letzten Gruppe ist nur so gut wie diese Annahme.`,
+    koerper: (gem, ges, ann, lb) => `${gem} Körper tragen eine gemessene Höhe aus OSM, ${ges} eine aus der Geschosszahl gerechnete, ${lb ? `${lb} eine aus Luftbildern geschätzte, ` : ''}${ann} eine Pauschale von acht Metern. Jede Schattenlänge der letzten Gruppe ist nur so gut wie diese Annahme.`,
     quote: (a) => `${a} % der Körper tragen eine gemessene Höhe aus OSM. Der Rest ist aus der Geschosszahl gerechnet oder, wo auch die fehlt, mit acht Metern angenommen – jede Schattenlänge dort ist nur so gut wie diese Annahme. Dieses Paket nennt nur die Quote, nicht ihre Bezugsgröße: ob Gebäudeteile mitgezählt sind, steht nicht darin. Zählen sie mit, fällt der Anteil günstiger aus, als er für die Gebäude allein wäre.`,
   },
   stand: {
@@ -1708,6 +1715,7 @@ const en = {
     grundlage: 'Basis',
     quelle: 'Source',
     nichtAngegeben: 'not stated',
+    ergaenzt: (n) => `${n} buildings added from`,
     vomVertrag: 'Reported by the data contract.',
   },
   pruefung: {
@@ -1732,6 +1740,11 @@ const en = {
       lang: 'The package includes terrain from an open elevation model (roughly 25–30 m resolution). Umbra computes on a flat plate: every building is set to zero and the terrain itself is dropped. Height differences between buildings and the slope as a shadow caster are missing from the calculation.',
       nachweis: 'On a slope, shading is underestimated downhill and overestimated uphill.',
     },
+    gebaeude_luftbild: {
+      kurz: 'Buildings from imagery',
+      lang: 'Where OpenStreetMap has no buildings, some have been added from Overture Maps, mostly outlines detected by machine from aerial imagery. Outline and height are estimated there, not surveyed; outbuildings may be missing or merged with the main house.',
+      nachweis: 'The shadows of these buildings are only as good as the estimate of their height.',
+    },
     innenhoefe_zugedeckt: {
       kurz: 'Courtyards covered',
       lang: 'This package does not record courtyards as holes; a perimeter block with a courtyard stands as a solid volume, and its courtyard lies under a roof in the calculation. Sunlight values in the courtyard and on courtyard façades are therefore too low.',
@@ -1741,6 +1754,7 @@ const en = {
   hoehen: {
     gemessen: 'measured',
     ausGeschossen: 'from number of storeys',
+    ausLuftbild: 'estimated from imagery',
     angenommen: 'assumed at 8 m',
     teile: 'Building parts',
     nichtGezaehlt: 'not counted',
@@ -1748,13 +1762,13 @@ const en = {
     ueberKoerper: 'Body heights',
     satzEinfach: 'Every shadow length in the assumed group is only as good as the assumption.',
     satzFlaeche: (nA, geb, fA) => `${nA} % of the ${geb ? 'buildings' : 'bodies'}, but ${fA} % of the footprint area, rest on the flat assumption — every shadow length there is only as good as that.`,
-    text: (gem, ges, ann, geb) => `${gem} ${geb ? 'buildings' : 'bodies'} carry a measured height from OSM, ${ges} one computed from the number of storeys, ${ann} a flat assumption of eight metres.`,
+    text: (gem, ges, ann, geb, lb) => `${gem} ${geb ? 'buildings' : 'bodies'} carry a measured height from OSM, ${ges} one computed from the number of storeys, ${lb ? `${lb} one estimated from aerial imagery, ` : ''}${ann} a flat assumption of eight metres.`,
     textTeile: (n) => ` In addition, ${n} building parts that are included in the calculation but not counted here – they sit inside their buildings and almost always carry a measured height.`,
     textGemischt: ' Buildings and building parts are counted together; parts almost always carry a measured height, so the breakdown looks better than it would for the buildings alone.',
     textFlaeche: (nA, geb, fA, groesser) => ` That is ${nA} % of the ${geb ? 'buildings' : 'bodies'}, but ${fA} % of the footprint area${groesser ? ' – buildings without attributes are larger on average than the surveyed ones' : ''}.`,
     textDieser: ' Every shadow length in this group is only as good as the assumption.',
     textLetzter: ' Every shadow length in the last group is only as good as this assumption.',
-    koerper: (gem, ges, ann) => `${gem} bodies carry a measured height from OSM, ${ges} one computed from the number of storeys, ${ann} a flat assumption of eight metres. Every shadow length in the last group is only as good as this assumption.`,
+    koerper: (gem, ges, ann, lb) => `${gem} bodies carry a measured height from OSM, ${ges} one computed from the number of storeys, ${lb ? `${lb} one estimated from aerial imagery, ` : ''}${ann} a flat assumption of eight metres. Every shadow length in the last group is only as good as this assumption.`,
     quote: (a) => `${a} % of the bodies carry a measured height from OSM. The rest is computed from the number of storeys or, where that is missing too, assumed at eight metres – every shadow length there is only as good as that assumption. This package gives only the ratio, not what it refers to: whether building parts are counted is not stated. If they are, the share looks better than it would for the buildings alone.`,
   },
   stand: {
@@ -2406,7 +2420,7 @@ function groesseAnpassen() {
 //  erzeugt mit `node pruefung/vertrag.mjs --tabelle` und von derselben
 //  Prüfung gegen diese Datei gehalten. Hier nicht von Hand ändern.
 // ═══════════════════════════════════════════════════════════
-const NOLLI_V2 = {"FELDER":{"schritt":"step","gitter":"grid","mittelmeridian":"central_meridian","bbox_gitter":"bbox_grid","sued":"south","ost":"east","nord":"north","breite_m":"width_m","hoehe_m":"height_m","flaeche_ha":"area_ha","seitenverhaeltnis":"aspect_ratio","pixel_breite":"pixel_width","pixel_hoehe":"pixel_height","meter_pro_pixel":"meters_per_pixel","restkonvergenz_grad":"residual_convergence_deg","pruefpixel_12m":"check_pixels_12m","mitte":"center","karte":"map","luftbild":"satellite","gelaende":"terrain","strassenansicht":"street_view","suche":"search","erde":"earth","quelle":"source","lizenz":"license","erstellt":"created","ort":"place","wo":"region","objekte":"objects","gestrichen":"removed","erhalt":"kept","baeume":"trees","vorgabe_krone_m":"default_crown_m","stammhoehe_m":"trunk_height_m","silhouette_faktor":"silhouette_factor","baukoerper":"body_count","gebaeude":"buildings","teile":"parts","hoehen_echt_anteil":"measured_height_share","hoehen_herkunft":"height_origin","hoehen_herkunft_gebaeude":"height_origin_buildings","gemessen":"measured","aus_geschossen":"from_storeys","annahme_8m":"assumed_8m","grundflaeche_m2":"footprint_m2","dateien":"files","paket":"package","modell":"model","zeichnung":"drawing","aufsicht":"image","aufsicht_grund_im_paket":"top_view_bare_in_package","vorbehalte":"caveats","flaechen_m2":"areas_m2","wasser":"water","gruen":"green","bahn":"rail","strasse":"streets","bau":"construction","verkehrsflaeche_m2_geschaetzt":"traffic_area_m2_estimated","fahrbahn":"carriageway","wege":"paths","modell_namenszusaetze":"model_name_suffixes","_hoehe_geschaetzt":"_height_estimated","_ausserhalb":"_outside","bildformat":"image_format","bilder":"images","daten":"data","datei":"file","darstellung":"style","was":"description","eintraege":"entries","felder":"fields","koerper":"bodies","netz":"network","nutzflaechen":"land_use","pois":"pois","haltestellen":"stops","linien":"lines","rest":"other","art":"kind","kreuzt_rahmen":"crosses_frame","geschosse":"storeys","denkmal":"heritage","adresse":"address","nutzung":"osm_building","klasse":"use_class","zustand":"state","knoten":"nodes","von":"from","bis":"to","nach":"towards","laenge_m":"length_m","weg":"way","punkte":"points","gruppe":"group","flaeche_m2":"area_m2","ringe":"rings","typ":"type","krone_m":"crown_m","fuss_m":"base_m","modelle":"models","kachel_m_pro_px":"tile_m_per_px","raster_m":"grid_spacing_m","hoehenbezug":"height_datum","aequidistanz_m":"contour_interval_m","geholt":"fetched","hoehen":"heights"},"WERTE":{"art":{"gebaeude":"building","teil":"part"},"quelle":{"gemessen":"measured","geschosse":"storeys","annahme":"assumed","knoten":"node","flaeche":"area"},"klasse":{"wohnen":"residential","gewerbe":"commercial","oeffentlich":"public","neben":"ancillary","unbestimmt":"undetermined"},"zustand":{"normal":"normal","gestrichen":"removed","erhalt":"kept"},"gruppe":{"verkehr":"transport","moeblierung":"furniture","freizeit":"leisure","versorgung":"amenities","gastronomie":"food_drink","verwaltung":"administration","sonstiges":"other","bildung":"education","gesundheit":"health"},"typ":{"punkt":"point","flaeche":"area","linie":"line"},"vorbehalte":{"daecher_flach":"roofs_flat","gelaende_eben":"terrain_flat","gelaende_grob":"terrain_coarse"},"lizenz":{"ODbL, © OpenStreetMap-Mitwirkende":"ODbL, © OpenStreetMap contributors"}},"DARSTELLUNGEN_V2":{"schwarzplan":"figure_ground","invertiert":"inverted","linie":"line","nutzung":"use","modellaufsicht":"top_view","weissmodell":"white_model","datentiefe":"data_depth","modell3d":"model_3d"},"DATEIEN":{"frame.json":"frame.json","modell.obj":"model.obj","zeichnung.dxf":"drawing.dxf","daten/koerper.json":"data/bodies.json","daten/netz.json":"data/network.json","daten/punkte.json":"data/points.json","daten/haltestellen.json":"data/stops.json","daten/linien.json":"data/lines.json","daten/flaechen.json":"data/land_use.json","daten/rest.json":"data/other.json","daten/baeume.json":"data/trees.json","daten/gelaende.json":"data/terrain.json","bilder/3d-modell.webp":"images/model_3d.webp"},"OBJ_NAMEN":[["gebaeude_","building_"],["erhalt_","kept_"],["_hoehe_geschaetzt","_height_estimated"],["_ausserhalb","_outside"],["baum_","tree_"],["_krone_vorgabe","_crown_default"],["gelaende","terrain"]],"DXF_EBENEN":{"N_GRUEN":"N_GREEN","N_WASSER":"N_WATER","N_BAHN":"N_RAIL","N_STRASSE":"N_STREETS","N_BAU":"N_CONSTRUCTION","N_GEBAEUDE":"N_BUILDINGS","N_ERHALT":"N_KEPT","N_GESTRICHEN":"N_REMOVED","N_PLANGEBIET":"N_SITE","N_RAHMEN":"N_FRAME","N_BAUM":"N_TREES","N_BESCHRIFTUNG":"N_LABELS","N_HOEHENLINIE":"N_CONTOUR","N_HOEHENLINIE_HAUPT":"N_CONTOUR_MAJOR"}};
+const NOLLI_V2 = {"FELDER":{"schritt":"step","gitter":"grid","mittelmeridian":"central_meridian","bbox_gitter":"bbox_grid","sued":"south","ost":"east","nord":"north","breite_m":"width_m","hoehe_m":"height_m","flaeche_ha":"area_ha","seitenverhaeltnis":"aspect_ratio","pixel_breite":"pixel_width","pixel_hoehe":"pixel_height","meter_pro_pixel":"meters_per_pixel","restkonvergenz_grad":"residual_convergence_deg","pruefpixel_12m":"check_pixels_12m","mitte":"center","karte":"map","luftbild":"satellite","gelaende":"terrain","strassenansicht":"street_view","suche":"search","erde":"earth","quelle":"source","lizenz":"license","erstellt":"created","ort":"place","wo":"region","objekte":"objects","gestrichen":"removed","erhalt":"kept","baeume":"trees","vorgabe_krone_m":"default_crown_m","stammhoehe_m":"trunk_height_m","silhouette_faktor":"silhouette_factor","baukoerper":"body_count","gebaeude":"buildings","teile":"parts","hoehen_echt_anteil":"measured_height_share","hoehen_herkunft":"height_origin","hoehen_herkunft_gebaeude":"height_origin_buildings","gemessen":"measured","aus_geschossen":"from_storeys","annahme_8m":"assumed_8m","aus_luftbild":"from_imagery","grundflaeche_m2":"footprint_m2","dateien":"files","paket":"package","modell":"model","zeichnung":"drawing","aufsicht":"image","aufsicht_grund_im_paket":"top_view_bare_in_package","vorbehalte":"caveats","flaechen_m2":"areas_m2","wasser":"water","gruen":"green","bahn":"rail","strasse":"streets","bau":"construction","verkehrsflaeche_m2_geschaetzt":"traffic_area_m2_estimated","fahrbahn":"carriageway","wege":"paths","modell_namenszusaetze":"model_name_suffixes","_hoehe_geschaetzt":"_height_estimated","_ausserhalb":"_outside","bildformat":"image_format","bilder":"images","daten":"data","datei":"file","darstellung":"style","was":"description","eintraege":"entries","felder":"fields","koerper":"bodies","netz":"network","nutzflaechen":"land_use","pois":"pois","haltestellen":"stops","linien":"lines","rest":"other","art":"kind","kreuzt_rahmen":"crosses_frame","geschosse":"storeys","denkmal":"heritage","adresse":"address","nutzung":"osm_building","klasse":"use_class","zustand":"state","knoten":"nodes","von":"from","bis":"to","nach":"towards","laenge_m":"length_m","weg":"way","punkte":"points","gruppe":"group","flaeche_m2":"area_m2","ringe":"rings","typ":"type","krone_m":"crown_m","fuss_m":"base_m","modelle":"models","kachel_m_pro_px":"tile_m_per_px","raster_m":"grid_spacing_m","hoehenbezug":"height_datum","aequidistanz_m":"contour_interval_m","geholt":"fetched","hoehen":"heights","herkunft":"origin","herkunft_umriss":"geometry_source","ergaenzt":"added","quellen":"sources","namensnennung":"attribution","kategorie":"category","hierarchie":"hierarchy","zuversicht":"confidence","zuversicht_min":"min_confidence","marke":"brand"},"WERTE":{"art":{"gebaeude":"building","teil":"part"},"quelle":{"gemessen":"measured","geschosse":"storeys","luftbild":"imagery","annahme":"assumed","knoten":"node","flaeche":"area"},"klasse":{"wohnen":"residential","gewerbe":"commercial","oeffentlich":"public","neben":"ancillary","unbestimmt":"undetermined"},"zustand":{"normal":"normal","gestrichen":"removed","erhalt":"kept"},"gruppe":{"verkehr":"transport","moeblierung":"furniture","freizeit":"leisure","versorgung":"amenities","gastronomie":"food_drink","verwaltung":"administration","sonstiges":"other","bildung":"education","gesundheit":"health","dienstleistung":"services"},"typ":{"punkt":"point","flaeche":"area","linie":"line"},"vorbehalte":{"daecher_flach":"roofs_flat","gelaende_eben":"terrain_flat","gelaende_grob":"terrain_coarse","gebaeude_luftbild":"buildings_from_imagery"},"lizenz":{"ODbL, © OpenStreetMap-Mitwirkende":"ODbL, © OpenStreetMap contributors"}},"DARSTELLUNGEN_V2":{"schwarzplan":"figure_ground","invertiert":"inverted","linie":"line","nutzung":"use","modellaufsicht":"top_view","weissmodell":"white_model","datentiefe":"data_depth","modell3d":"model_3d"},"DATEIEN":{"frame.json":"frame.json","modell.obj":"model.obj","zeichnung.dxf":"drawing.dxf","daten/koerper.json":"data/bodies.json","daten/netz.json":"data/network.json","daten/punkte.json":"data/points.json","daten/haltestellen.json":"data/stops.json","daten/linien.json":"data/lines.json","daten/flaechen.json":"data/land_use.json","daten/rest.json":"data/other.json","daten/baeume.json":"data/trees.json","daten/gelaende.json":"data/terrain.json","daten/places.json":"data/places.json","bilder/3d-modell.webp":"images/model_3d.webp"},"OBJ_NAMEN":[["gebaeude_","building_"],["erhalt_","kept_"],["_hoehe_geschaetzt","_height_estimated"],["_ausserhalb","_outside"],["baum_","tree_"],["_krone_vorgabe","_crown_default"],["gelaende","terrain"]],"DXF_EBENEN":{"N_GRUEN":"N_GREEN","N_WASSER":"N_WATER","N_BAHN":"N_RAIL","N_STRASSE":"N_STREETS","N_BAU":"N_CONSTRUCTION","N_GEBAEUDE":"N_BUILDINGS","N_ERHALT":"N_KEPT","N_GESTRICHEN":"N_REMOVED","N_PLANGEBIET":"N_SITE","N_RAHMEN":"N_FRAME","N_BAUM":"N_TREES","N_BESCHRIFTUNG":"N_LABELS","N_HOEHENLINIE":"N_CONTOUR","N_HOEHENLINIE_HAUPT":"N_CONTOUR_MAJOR"}};
 const nolliUmkehren = (m) => Object.fromEntries(Object.entries(m).map(([a, b]) => [b, a]));
 const NOLLI_V1 = {
   felder: nolliUmkehren(NOLLI_V2.FELDER),
@@ -2593,6 +2607,9 @@ function vertragUebernehmen(v) {
     // `hoehenHerkunftText`.
     hoehenHerkunftGebaeude: (v.hoehen_herkunft_gebaeude && typeof v.hoehen_herkunft_gebaeude === 'object') ? v.hoehen_herkunft_gebaeude : null,
     baukoerper: (v.baukoerper && typeof v.baukoerper === 'object') ? v.baukoerper : null,
+    // Gebäude, die Nolli aus Overture ergänzt hat, wo OpenStreetMap keine
+    // führt. Ohne Ergänzung `null`. Die Namensnennung gehört neben die Lizenz.
+    overture: (v.overture && typeof v.overture === 'object') ? v.overture : null,
     flaecheHa: v.flaeche_ha ?? null,
     meterProPixel: v.meter_pro_pixel ?? null,
     konvergenz: v.restkonvergenz_grad ?? null,
@@ -4941,11 +4958,13 @@ function hoehenHerkunftZeilen() {
   const nurGebaeude = !!h.hoehenHerkunftGebaeude;
   if (!hh || typeof hh.annahme_8m !== 'number') return null;
 
-  const n = hh.gemessen + hh.aus_geschossen + hh.annahme_8m;
+  const lb = hh.aus_luftbild || 0;
+  const n = hh.gemessen + hh.aus_geschossen + lb + hh.annahme_8m;
   const f = hh.grundflaeche_m2;
   const zeilen = [
     [tx.hoehen.gemessen, hh.gemessen],
     [tx.hoehen.ausGeschossen, hh.aus_geschossen],
+    ...(lb ? [[tx.hoehen.ausLuftbild, lb]] : []),
     [tx.hoehen.angenommen, hh.annahme_8m],
   ];
   if (nurGebaeude && h.baukoerper && h.baukoerper.teile)
@@ -4953,7 +4972,7 @@ function hoehenHerkunftZeilen() {
 
   let satz = tx.hoehen.satzEinfach;
   if (f && typeof f.annahme_8m === 'number') {
-    const g = f.gemessen + f.aus_geschossen + f.annahme_8m;
+    const g = f.gemessen + f.aus_geschossen + (f.aus_luftbild || 0) + f.annahme_8m;
     const nA = n ? Math.round(hh.annahme_8m / n * 100) : 0;
     const fA = g ? Math.round(f.annahme_8m / g * 100) : 0;
     // Die Fläche ist die ehrlichere Zahl: Die Bauten ohne Merkmale sind im
@@ -4988,16 +5007,23 @@ function hoehenHerkunftText() {
   // Schatten. Sie stehen im zweiten Satz, wo sie hingehören.
   const hh = h.hoehenHerkunftGebaeude || h.hoehenHerkunft;
   const nurGebaeude = !!h.hoehenHerkunftGebaeude;
+  //
+  // Seit dem 28.10.2026 gibt es eine vierte Quelle, `aus_luftbild`: Gebäude,
+  // die Nolli aus Overture ergänzt, mit einer aus Luftbildern geschätzten
+  // Höhe. Sie zählt zu den geschätzten, nicht zu den gemessenen, und muss in
+  // jede Summe — sonst fehlen in Upper Saddle River 590 von 631 Gebäuden, und
+  // die Pauschale stünde bei 100 % statt bei 6 %.
   if (hh && typeof hh.annahme_8m === 'number') {
-    const n = hh.gemessen + hh.aus_geschossen + hh.annahme_8m;
+    const lb = hh.aus_luftbild || 0;
+    const n = hh.gemessen + hh.aus_geschossen + lb + hh.annahme_8m;
     const f = hh.grundflaeche_m2;
-    const satz = tx.hoehen.text(hh.gemessen, hh.aus_geschossen, hh.annahme_8m, nurGebaeude);
+    const satz = tx.hoehen.text(hh.gemessen, hh.aus_geschossen, hh.annahme_8m, nurGebaeude, lb);
     // Die Teile sind gerechnet, aber nicht mitgezählt – beides muss dastehen.
     const teile = nurGebaeude && h.baukoerper && h.baukoerper.teile
       ? tx.hoehen.textTeile(h.baukoerper.teile)
       : (!nurGebaeude ? tx.hoehen.textGemischt : '');
     if (f && typeof f.annahme_8m === 'number') {
-      const g = f.gemessen + f.aus_geschossen + f.annahme_8m;
+      const g = f.gemessen + f.aus_geschossen + (f.aus_luftbild || 0) + f.annahme_8m;
       const nA = n ? Math.round(hh.annahme_8m / n * 100) : 0;
       const fA = g ? Math.round(f.annahme_8m / g * 100) : 0;
       return satz + tx.hoehen.textFlaeche(nA, nurGebaeude, fA, fA > nA + 2) + teile + tx.hoehen.textDieser;
@@ -5008,9 +5034,9 @@ function hoehenHerkunftText() {
   // Liegt die Höhenliste vor, wird gezählt statt gerundet – und die
   // Geschossrechnung von der Acht-Meter-Pauschale unterschieden.
   if (h.koerper) {
-    const z = { gemessen:0, geschosse:0, annahme:0 };
+    const z = { gemessen:0, geschosse:0, luftbild:0, annahme:0 };
     h.koerper.forEach(k => { if (z[k.quelle] !== undefined) z[k.quelle]++; });
-    return tx.hoehen.koerper(z.gemessen, z.geschosse, z.annahme);
+    return tx.hoehen.koerper(z.gemessen, z.geschosse, z.annahme, z.luftbild);
   }
   // Letzte Rückfallebene: eine nackte Quote aus `hoehen_echt_anteil`. Sie nennt
   // **nicht**, worauf sie sich bezieht — und seit ein Paket Gebäude und
@@ -5238,7 +5264,7 @@ function renderHerkunft() {
       </summary>
       ${vorbehalte.map(v => `<p class="t-prose leise" style="margin:var(--reihe) 0 0"><strong>${v.kurz}.</strong> ${v.lang}</p>`).join('')}
     </details>` : ''}
-    <p class="t-prose leise" style="margin:var(--block) 0 0">${tx.herkunft.ortLautVertrag}<br>${h.quelle === 'openstreetmap' ? tx.herkunft.grundlage : tx.herkunft.quelle}: ${lizenzText(h.lizenz) || tx.herkunft.nichtAngegeben}</p>`;
+    <p class="t-prose leise" style="margin:var(--block) 0 0">${tx.herkunft.ortLautVertrag}<br>${h.quelle === 'openstreetmap' ? tx.herkunft.grundlage : tx.herkunft.quelle}: ${lizenzText(h.lizenz) || tx.herkunft.nichtAngegeben}${h.overture && h.overture.namensnennung ? `<br>${tx.herkunft.ergaenzt(zahlText(h.overture.ergaenzt ?? 0))} Overture Maps: ${h.overture.namensnennung}` : ''}</p>`;
 }
 
 // Ein abgeschalteter Vertrag ist kein stummgeschalteter, sondern ein nicht
