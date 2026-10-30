@@ -1333,6 +1333,11 @@ const de = {
       lang: 'Wo OpenStreetMap keine Gebäude führt, sind welche aus Overture Maps ergänzt, meist maschinell aus Luftbildern erkannte Umrisse. Umriss und Höhe sind dort geschätzt, nicht vermessen; Nebengebäude können fehlen oder mit dem Haupthaus verschmelzen.',
       nachweis: 'Die Schatten dieser Gebäude sind nur so gut wie die Schätzung ihrer Höhe.',
     },
+    gebaeude_unplausibel: {
+      kurz: 'Unplausible Gebäude',
+      lang: 'Nolli hat in OpenStreetMap Gebäude gefunden, die nicht zu einem Haus passen: solche, in denen viele andere stehen – meist ein Gebiet, das als Gebäude eingetragen wurde –, oder sehr große ohne Inhalt. Die ersten streicht Nolli vorläufig, sonst deckten sie alles darunter zu; die übrigen bleiben stehen. Welche es sind und was mit ihnen geschah, steht im Datenvertrag.',
+      nachweis: 'Ein stehengebliebenes Gebiet wirft einen Schatten, den es in Wirklichkeit nicht gibt.',
+    },
     innenhoefe_zugedeckt: {
       kurz: 'Innenhöfe zugedeckt',
       lang: 'Dieses Paket führt Innenhöfe nicht als Löcher; ein Blockrand mit Hof steht als voller Klotz, sein Hof liegt in der Rechnung unter einem Dach. Besonnungswerte im Hof und an Hoffassaden fallen dadurch zu niedrig aus.',
@@ -1475,6 +1480,9 @@ const de = {
     tagDurch: 'durchgehend Tag',
     nachtDurch: 'durchgehend Nacht',
     mez: 'MEZ',
+    mesz: 'MESZ',
+    zoneAngenommen: (k) => `${k}, angenommen`,
+    zoneTitel: (n, w) => `Ortszeit ${n} – ${({ vertrag: 'laut Datenvertrag', ermittelt: 'über Open-Meteo zum Ort ermittelt', vorgabe: 'Vorgabe für Hamburg', angenommen: 'angenommen, weil sie zum Ort nicht ermittelt werden konnte' })[w] || w}`,
     juni21: '21. Juni', maerz21: '21. März', dez21: '21. Dezember',
     juni: 'Juni', maerz: 'März', dez: 'Dez.',
     jan17: '17. Januar',
@@ -1745,6 +1753,11 @@ const en = {
       lang: 'Where OpenStreetMap has no buildings, some have been added from Overture Maps, mostly outlines detected by machine from aerial imagery. Outline and height are estimated there, not surveyed; outbuildings may be missing or merged with the main house.',
       nachweis: 'The shadows of these buildings are only as good as the estimate of their height.',
     },
+    gebaeude_unplausibel: {
+      kurz: 'Implausible buildings',
+      lang: 'Nolli found buildings in OpenStreetMap that do not fit a house: ones with many others inside them – usually an area tagged as a building – or very large ones with nothing inside. Nolli removes the first kind for now, since they would otherwise cover everything beneath; the others remain. Which ones they are and what happened to them is listed in the data contract.',
+      nachweis: 'An area left standing casts a shadow that does not exist in reality.',
+    },
     innenhoefe_zugedeckt: {
       kurz: 'Courtyards covered',
       lang: 'This package does not record courtyards as holes; a perimeter block with a courtyard stands as a solid volume, and its courtyard lies under a roof in the calculation. Sunlight values in the courtyard and on courtyard façades are therefore too low.',
@@ -1887,6 +1900,9 @@ const en = {
     tagDurch: 'daylight all day',
     nachtDurch: 'night all day',
     mez: 'CET',
+    mesz: 'CEST',
+    zoneAngenommen: (k) => `${k}, assumed`,
+    zoneTitel: (n, w) => `Local time ${n} – ${({ vertrag: 'per data contract', ermittelt: 'looked up for the location via Open-Meteo', vorgabe: 'default for Hamburg', angenommen: 'assumed, because it could not be looked up for the location' })[w] || w}`,
     juni21: '21 June', maerz21: '21 March', dez21: '21 December',
     juni: 'June', maerz: 'March', dez: 'Dec',
     jan17: '17 January',
@@ -2222,6 +2238,7 @@ const zustand = {
   // DIN 5034-1 vier Stunden Besonnung verlangt.
   zeitpunkt: new Date('2026-03-21T15:00:00'),
   ort: { lat: ORT_VORGABE.lat, lon: ORT_VORGABE.lon, name: ORT_VORGABE.name },
+  zeitzone: { name: 'Europe/Berlin', herkunft: 'vorgabe', fuer: null },
   modelle: { modell:null },
   quellen: { modell:null, aufsicht:null, vertrag:null },
   sichtbar: { modell:true, aufsicht:true, vertrag:true },
@@ -2420,7 +2437,7 @@ function groesseAnpassen() {
 //  erzeugt mit `node pruefung/vertrag.mjs --tabelle` und von derselben
 //  Prüfung gegen diese Datei gehalten. Hier nicht von Hand ändern.
 // ═══════════════════════════════════════════════════════════
-const NOLLI_V2 = {"FELDER":{"schritt":"step","gitter":"grid","mittelmeridian":"central_meridian","bbox_gitter":"bbox_grid","sued":"south","ost":"east","nord":"north","breite_m":"width_m","hoehe_m":"height_m","flaeche_ha":"area_ha","seitenverhaeltnis":"aspect_ratio","pixel_breite":"pixel_width","pixel_hoehe":"pixel_height","meter_pro_pixel":"meters_per_pixel","restkonvergenz_grad":"residual_convergence_deg","pruefpixel_12m":"check_pixels_12m","mitte":"center","karte":"map","luftbild":"satellite","gelaende":"terrain","strassenansicht":"street_view","suche":"search","erde":"earth","quelle":"source","lizenz":"license","erstellt":"created","ort":"place","wo":"region","objekte":"objects","gestrichen":"removed","erhalt":"kept","baeume":"trees","vorgabe_krone_m":"default_crown_m","stammhoehe_m":"trunk_height_m","silhouette_faktor":"silhouette_factor","baukoerper":"body_count","gebaeude":"buildings","teile":"parts","hoehen_echt_anteil":"measured_height_share","hoehen_herkunft":"height_origin","hoehen_herkunft_gebaeude":"height_origin_buildings","gemessen":"measured","aus_geschossen":"from_storeys","annahme_8m":"assumed_8m","aus_luftbild":"from_imagery","grundflaeche_m2":"footprint_m2","dateien":"files","paket":"package","modell":"model","zeichnung":"drawing","aufsicht":"image","aufsicht_grund_im_paket":"top_view_bare_in_package","vorbehalte":"caveats","flaechen_m2":"areas_m2","wasser":"water","gruen":"green","bahn":"rail","strasse":"streets","bau":"construction","verkehrsflaeche_m2_geschaetzt":"traffic_area_m2_estimated","fahrbahn":"carriageway","wege":"paths","modell_namenszusaetze":"model_name_suffixes","_hoehe_geschaetzt":"_height_estimated","_ausserhalb":"_outside","bildformat":"image_format","bilder":"images","daten":"data","datei":"file","darstellung":"style","was":"description","eintraege":"entries","felder":"fields","koerper":"bodies","netz":"network","nutzflaechen":"land_use","pois":"pois","haltestellen":"stops","linien":"lines","rest":"other","art":"kind","kreuzt_rahmen":"crosses_frame","geschosse":"storeys","denkmal":"heritage","adresse":"address","nutzung":"osm_building","klasse":"use_class","zustand":"state","knoten":"nodes","von":"from","bis":"to","nach":"towards","laenge_m":"length_m","weg":"way","punkte":"points","gruppe":"group","flaeche_m2":"area_m2","ringe":"rings","typ":"type","krone_m":"crown_m","fuss_m":"base_m","modelle":"models","kachel_m_pro_px":"tile_m_per_px","raster_m":"grid_spacing_m","hoehenbezug":"height_datum","aequidistanz_m":"contour_interval_m","geholt":"fetched","hoehen":"heights","herkunft":"origin","herkunft_umriss":"geometry_source","ergaenzt":"added","quellen":"sources","namensnennung":"attribution","kategorie":"category","hierarchie":"hierarchy","zuversicht":"confidence","zuversicht_min":"min_confidence","marke":"brand"},"WERTE":{"art":{"gebaeude":"building","teil":"part"},"quelle":{"gemessen":"measured","geschosse":"storeys","luftbild":"imagery","annahme":"assumed","knoten":"node","flaeche":"area"},"klasse":{"wohnen":"residential","gewerbe":"commercial","oeffentlich":"public","neben":"ancillary","unbestimmt":"undetermined"},"zustand":{"normal":"normal","gestrichen":"removed","erhalt":"kept"},"gruppe":{"verkehr":"transport","moeblierung":"furniture","freizeit":"leisure","versorgung":"amenities","gastronomie":"food_drink","verwaltung":"administration","sonstiges":"other","bildung":"education","gesundheit":"health","dienstleistung":"services"},"typ":{"punkt":"point","flaeche":"area","linie":"line"},"vorbehalte":{"daecher_flach":"roofs_flat","gelaende_eben":"terrain_flat","gelaende_grob":"terrain_coarse","gebaeude_luftbild":"buildings_from_imagery"},"lizenz":{"ODbL, © OpenStreetMap-Mitwirkende":"ODbL, © OpenStreetMap contributors"}},"DARSTELLUNGEN_V2":{"schwarzplan":"figure_ground","invertiert":"inverted","linie":"line","nutzung":"use","modellaufsicht":"top_view","weissmodell":"white_model","datentiefe":"data_depth","modell3d":"model_3d"},"DATEIEN":{"frame.json":"frame.json","modell.obj":"model.obj","zeichnung.dxf":"drawing.dxf","daten/koerper.json":"data/bodies.json","daten/netz.json":"data/network.json","daten/punkte.json":"data/points.json","daten/haltestellen.json":"data/stops.json","daten/linien.json":"data/lines.json","daten/flaechen.json":"data/land_use.json","daten/rest.json":"data/other.json","daten/baeume.json":"data/trees.json","daten/gelaende.json":"data/terrain.json","daten/places.json":"data/places.json","bilder/3d-modell.webp":"images/model_3d.webp"},"OBJ_NAMEN":[["gebaeude_","building_"],["erhalt_","kept_"],["_hoehe_geschaetzt","_height_estimated"],["_ausserhalb","_outside"],["baum_","tree_"],["_krone_vorgabe","_crown_default"],["gelaende","terrain"]],"DXF_EBENEN":{"N_GRUEN":"N_GREEN","N_WASSER":"N_WATER","N_BAHN":"N_RAIL","N_STRASSE":"N_STREETS","N_BAU":"N_CONSTRUCTION","N_GEBAEUDE":"N_BUILDINGS","N_OVERTURE":"N_OVERTURE","N_ERHALT":"N_KEPT","N_GESTRICHEN":"N_REMOVED","N_PLANGEBIET":"N_SITE","N_RAHMEN":"N_FRAME","N_BAUM":"N_TREES","N_BESCHRIFTUNG":"N_LABELS","N_HOEHENLINIE":"N_CONTOUR","N_HOEHENLINIE_HAUPT":"N_CONTOUR_MAJOR"}};
+const NOLLI_V2 = {"FELDER":{"schritt":"step","gitter":"grid","mittelmeridian":"central_meridian","bbox_gitter":"bbox_grid","sued":"south","ost":"east","nord":"north","breite_m":"width_m","hoehe_m":"height_m","flaeche_ha":"area_ha","seitenverhaeltnis":"aspect_ratio","pixel_breite":"pixel_width","pixel_hoehe":"pixel_height","meter_pro_pixel":"meters_per_pixel","restkonvergenz_grad":"residual_convergence_deg","pruefpixel_12m":"check_pixels_12m","zeitzone":"time_zone","mitte":"center","karte":"map","luftbild":"satellite","gelaende":"terrain","strassenansicht":"street_view","suche":"search","erde":"earth","quelle":"source","lizenz":"license","erstellt":"created","ort":"place","wo":"region","objekte":"objects","gestrichen":"removed","erhalt":"kept","baeume":"trees","vorgabe_krone_m":"default_crown_m","stammhoehe_m":"trunk_height_m","silhouette_faktor":"silhouette_factor","baukoerper":"body_count","gebaeude":"buildings","teile":"parts","hoehen_echt_anteil":"measured_height_share","hoehen_herkunft":"height_origin","hoehen_herkunft_gebaeude":"height_origin_buildings","gemessen":"measured","aus_geschossen":"from_storeys","annahme_8m":"assumed_8m","aus_luftbild":"from_imagery","grundflaeche_m2":"footprint_m2","dateien":"files","paket":"package","modell":"model","zeichnung":"drawing","aufsicht":"image","aufsicht_grund_im_paket":"top_view_bare_in_package","vorbehalte":"caveats","flaechen_m2":"areas_m2","wasser":"water","gruen":"green","bahn":"rail","strasse":"streets","bau":"construction","verkehrsflaeche_m2_geschaetzt":"traffic_area_m2_estimated","fahrbahn":"carriageway","wege":"paths","modell_namenszusaetze":"model_name_suffixes","_hoehe_geschaetzt":"_height_estimated","_ausserhalb":"_outside","bildformat":"image_format","bilder":"images","daten":"data","datei":"file","darstellung":"style","was":"description","eintraege":"entries","felder":"fields","koerper":"bodies","netz":"network","nutzflaechen":"land_use","pois":"pois","haltestellen":"stops","linien":"lines","rest":"other","art":"kind","kreuzt_rahmen":"crosses_frame","geschosse":"storeys","denkmal":"heritage","adresse":"address","nutzung":"osm_building","klasse":"use_class","zustand":"state","knoten":"nodes","von":"from","bis":"to","nach":"towards","laenge_m":"length_m","weg":"way","punkte":"points","gruppe":"group","flaeche_m2":"area_m2","ringe":"rings","typ":"type","krone_m":"crown_m","fuss_m":"base_m","modelle":"models","kachel_m_pro_px":"tile_m_per_px","raster_m":"grid_spacing_m","hoehenbezug":"height_datum","aequidistanz_m":"contour_interval_m","geholt":"fetched","hoehen":"heights","herkunft":"origin","herkunft_umriss":"geometry_source","ergaenzt":"added","quellen":"sources","namensnennung":"attribution","kategorie":"category","hierarchie":"hierarchy","zuversicht":"confidence","zuversicht_min":"min_confidence","marke":"brand","unplausibel":"implausible_buildings","enthaelt":"contains_buildings","osm":"osm_url"},"WERTE":{"art":{"gebaeude":"building","teil":"part"},"quelle":{"gemessen":"measured","geschosse":"storeys","luftbild":"imagery","annahme":"assumed","knoten":"node","flaeche":"area"},"klasse":{"wohnen":"residential","gewerbe":"commercial","oeffentlich":"public","neben":"ancillary","unbestimmt":"undetermined"},"zustand":{"normal":"normal","gestrichen":"removed","erhalt":"kept"},"gruppe":{"verkehr":"transport","moeblierung":"furniture","freizeit":"leisure","versorgung":"amenities","gastronomie":"food_drink","verwaltung":"administration","sonstiges":"other","bildung":"education","gesundheit":"health","dienstleistung":"services"},"typ":{"punkt":"point","flaeche":"area","linie":"line"},"vorbehalte":{"daecher_flach":"roofs_flat","gelaende_eben":"terrain_flat","gelaende_grob":"terrain_coarse","gebaeude_luftbild":"buildings_from_imagery","gebaeude_unplausibel":"buildings_implausible"},"lizenz":{"ODbL, © OpenStreetMap-Mitwirkende":"ODbL, © OpenStreetMap contributors"}},"DARSTELLUNGEN_V2":{"schwarzplan":"figure_ground","invertiert":"inverted","linie":"line","nutzung":"use","modellaufsicht":"top_view","weissmodell":"white_model","datentiefe":"data_depth","modell3d":"model_3d"},"DATEIEN":{"frame.json":"frame.json","modell.obj":"model.obj","zeichnung.dxf":"drawing.dxf","daten/koerper.json":"data/bodies.json","daten/netz.json":"data/network.json","daten/punkte.json":"data/points.json","daten/haltestellen.json":"data/stops.json","daten/linien.json":"data/lines.json","daten/flaechen.json":"data/land_use.json","daten/rest.json":"data/other.json","daten/baeume.json":"data/trees.json","daten/gelaende.json":"data/terrain.json","daten/places.json":"data/places.json","bilder/3d-modell.webp":"images/model_3d.webp"},"OBJ_NAMEN":[["gebaeude_","building_"],["erhalt_","kept_"],["_hoehe_geschaetzt","_height_estimated"],["_ausserhalb","_outside"],["baum_","tree_"],["_krone_vorgabe","_crown_default"],["gelaende","terrain"]],"DXF_EBENEN":{"N_GRUEN":"N_GREEN","N_WASSER":"N_WATER","N_BAHN":"N_RAIL","N_STRASSE":"N_STREETS","N_BAU":"N_CONSTRUCTION","N_GEBAEUDE":"N_BUILDINGS","N_OVERTURE":"N_OVERTURE","N_ERHALT":"N_KEPT","N_GESTRICHEN":"N_REMOVED","N_PLANGEBIET":"N_SITE","N_RAHMEN":"N_FRAME","N_BAUM":"N_TREES","N_BESCHRIFTUNG":"N_LABELS","N_HOEHENLINIE":"N_CONTOUR","N_HOEHENLINIE_HAUPT":"N_CONTOUR_MAJOR"}};
 const nolliUmkehren = (m) => Object.fromEntries(Object.entries(m).map(([a, b]) => [b, a]));
 const NOLLI_V1 = {
   felder: nolliUmkehren(NOLLI_V2.FELDER),
@@ -2591,6 +2608,7 @@ function vertragUebernehmen(v) {
   const name = v.ort ? [v.ort.name, v.ort.wo].filter(Boolean).join(', ') : tx.kopf.modellmitte;
 
   zustand.ort = { lat: ort.lat, lon: ort.lon, name };
+  if (typeof v.zeitzone === 'string' && zoneGueltig(v.zeitzone)) zeitzoneSetzen(v.zeitzone, 'vertrag');
   zustand.herkunft = {
     quelle: v.quelle || null,
     lizenz: v.lizenz || null,
@@ -2716,10 +2734,10 @@ function tmercZurueck(x, y, lon0Grad, k0 = 1) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  SONNENSTAND  (NOAA-Verfahren, Sommerzeit für Mitteleuropa)
-//  Rechenkern unverändert aus dem Vorgänger übernommen.
+//  SONNENSTAND  (NOAA-Verfahren, in der Ortszeit des Modells)
+//  Rechenkern aus dem Vorgänger übernommen; bis 30.10.2026 fest auf MEZ.
 // ═══════════════════════════════════════════════════════════
-// `ohneSommerzeit` rechnet in Normalzeit (MEZ). Gebraucht wird das überall
+// `ohneSommerzeit` rechnet in der Normalzeit des Orts (in Hamburg MEZ). Gebraucht wird das überall
 // dort, wo **über das Jahr hinweg verglichen** wird: Am letzten Sonntag im
 // März springt die Uhr um eine Stunde, und dieselbe Uhrzeit meint vor und nach
 // dem Sprung zwei verschiedene Sonnenstände. *Gemessen* am 28./29.03.2026 um
@@ -2738,7 +2756,7 @@ function sonnenstand(datum, lat = zustand.ort.lat, lon = zustand.ort.lon, ohneSo
              - 0.006758*Math.cos(2*y) + 0.000907*Math.sin(2*y)
              - 0.002697*Math.cos(3*y) + 0.00148*Math.sin(3*y);
 
-  const tzVersatz = (!ohneSommerzeit && istSommerzeit(datum)) ? 2.0 : 1.0;
+  const tzVersatz = ohneSommerzeit ? normalVersatz(datum.getFullYear()) : zonenVersatz(datum);
   const versatz = zeitgleichung + 4 * (lon - 15 * tzVersatz);
   const wahreSonnenzeit = stunden*60 + versatz;
   const stundenwinkel = (wahreSonnenzeit / 4) - 180;
@@ -2754,14 +2772,125 @@ function sonnenstand(datum, lat = zustand.ort.lat, lon = zustand.ort.lon, ohneSo
   return { hoehe, azimut };
 }
 
-function istSommerzeit(d) {
-  const jahr = d.getFullYear();
-  return d >= letzterSonntag(jahr, 2) && d < letzterSonntag(jahr, 9);
+// ═══════════════════════════════════════════════════════════
+//  ZEITZONE
+//  Umbras Uhr zeigt die Ortszeit des Modells. Bis zum 30.10.2026 stand der
+//  Versatz fest auf MEZ/MESZ, für jeden Ort: In Upper Saddle River (New
+//  Jersey) stand die Sonne um 15:00 bei Azimut 122° statt 220°, Auf- und
+//  Untergang hießen „00:00 · 00:04", und das Strahlungsblatt verrechnete
+//  Open-Meteo-Stunden in Ortszeit mit Sonnenständen in MEZ.
+//
+//  Ein `Date` trägt in Umbra die **Wanduhr am Ort** in seinen Feldern
+//  (getHours …), nicht einen Augenblick. Den Versatz gegen UTC liefert die
+//  IANA-Zone über Intl, mit der Sommerzeit des Orts zu jedem Datum.
+//
+//  Woher die Zone kommt, in dieser Reihenfolge: aus dem Datenvertrag
+//  (`zeitzone`), sonst von Open-Meteo zum Ort, sonst die Normalzeit nach dem
+//  Längengrad (Etc/GMT±N, ohne Sommerzeit) — dann mit „angenommen" in der
+//  Statuszeile. Europe/Berlin als Rückfall hätte in New Jersey genau den
+//  Fehler wiederholt, den es hier zu beheben galt.
+// ═══════════════════════════════════════════════════════════
+const ZONE_VORGABE = 'Europe/Berlin';
+const zonenFormate = new Map();
+function zoneGueltig(name) {
+  try { new Intl.DateTimeFormat('en-US', { timeZone: name }); return true; } catch { return false; }
 }
-function letzterSonntag(jahr, monatIdx) {
-  const d = new Date(jahr, monatIdx + 1, 0);
-  d.setDate(d.getDate() - d.getDay());
-  return d;
+// Die Wanduhr der Zone zu einem Augenblick (ms seit 1970).
+function zonenTeile(ms, zone) {
+  let f = zonenFormate.get(zone);
+  if (!f) {
+    f = new Intl.DateTimeFormat('en-US', { timeZone: zone, hourCycle: 'h23', year: 'numeric', month: 'numeric',
+      day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+    zonenFormate.set(zone, f);
+  }
+  const t = {};
+  for (const teil of f.formatToParts(ms)) t[teil.type] = +teil.value;
+  return t;
+}
+function zonenVersatzAm(ms, zone) {
+  const t = zonenTeile(ms, zone);
+  return (Date.UTC(t.year, t.month - 1, t.day, t.hour, t.minute, t.second) - Math.floor(ms / 1000) * 1000) / 3600000;
+}
+// Versatz für eine Wanduhrzeit am Ort, je Stunde zwischengespeichert: Die
+// Sonnenrechnung läuft in Schleifen über Tage und Jahre.
+const versatzAblage = new Map();
+function zonenVersatz(datum, zone = zustand.zeitzone.name) {
+  const y = datum.getFullYear(), m = datum.getMonth(), d = datum.getDate(), h = datum.getHours();
+  const schl = `${zone}|${y}|${m}|${d}|${h}`;
+  let v = versatzAblage.get(schl);
+  if (v === undefined) {
+    const wand = Date.UTC(y, m, d, h, 30);
+    v = zonenVersatzAm(wand - zonenVersatzAm(wand, zone) * 3600000, zone);
+    versatzAblage.set(schl, v);
+  }
+  return v;
+}
+// Normalzeit: der kleinere Versatz aus Januar und Juli, damit auch auf der
+// Südhalbkugel, wo die Sommerzeit im Januar liegt.
+function normalVersatz(jahr, zone = zustand.zeitzone.name) {
+  const schl = `${zone}|${jahr}`;
+  let v = versatzAblage.get(schl);
+  if (v === undefined) {
+    v = Math.min(zonenVersatzAm(Date.UTC(jahr, 0, 1, 12), zone), zonenVersatzAm(Date.UTC(jahr, 6, 1, 12), zone));
+    versatzAblage.set(schl, v);
+  }
+  return v;
+}
+function istSommerzeit(d) {
+  return zonenVersatz(d) > normalVersatz(d.getFullYear());
+}
+// Jetzt, als Wanduhr am Ort.
+function jetztAmOrt() {
+  const t = zonenTeile(Date.now(), zustand.zeitzone.name);
+  return new Date(t.year, t.month - 1, t.day, t.hour, t.minute, t.second);
+}
+// Kurzname für die Anzeige: MEZ/MESZ in Mitteleuropa, sonst UTC±h.
+function zonenKuerzel(datum = zustand.zeitpunkt, normal = false) {
+  const n = normalVersatz(datum.getFullYear());
+  const v = normal ? n : zonenVersatz(datum);
+  if (n === 1 && /^Europe\//.test(zustand.zeitzone.name)) return v > n ? tx.zeit.mesz : tx.zeit.mez;
+  const a = Math.abs(v), std = Math.floor(a), min = Math.round((a - std) * 60);
+  return `UTC${v < 0 ? '−' : '+'}${std}${min ? ':' + String(min).padStart(2, '0') : ''}`;
+}
+
+// Etc/GMT trägt das Vorzeichen verkehrt herum: Etc/GMT+5 ist UTC−5.
+function zoneNachLaenge(lon) {
+  const n = Math.max(-12, Math.min(14, Math.round(lon / 15)));
+  return n === 0 ? 'Etc/GMT' : `Etc/GMT${n < 0 ? '+' : '-'}${Math.abs(n)}`;
+}
+function ortSchluessel(o = zustand.ort) { return `${o.lat.toFixed(2)},${o.lon.toFixed(2)}`; }
+function zeitzoneSetzen(name, herkunft) {
+  zustand.zeitzone = { name, herkunft, fuer: ortSchluessel() };
+}
+// Bei jedem Sonnenstand aufgerufen und meist sofort fertig: Gehört die Zone
+// zum Ort, geschieht nichts. Sonst wird sie einmal bei Open-Meteo erfragt,
+// das Umbra für die Wetterblätter ohnehin nutzt; bis zur Antwort gilt die
+// bisherige.
+let zoneAnfrage = null;
+function zeitzonePruefen() {
+  const schl = ortSchluessel();
+  if (zustand.zeitzone.fuer === schl || zoneAnfrage === schl) return;
+  // Hamburg ohne Anfrage: Das Startpaket nennt (noch) keine Zone, und jeder
+  // Besuch fragte sonst bei Open-Meteo nach dem, was ohnehin feststeht.
+  if (Math.abs(zustand.ort.lat - ORT_VORGABE.lat) < 0.05 && Math.abs(zustand.ort.lon - ORT_VORGABE.lon) < 0.05) {
+    zeitzoneSetzen(ZONE_VORGABE, 'vorgabe');
+    return;
+  }
+  zoneAnfrage = schl;
+  const o = zustand.ort;
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${o.lat.toFixed(4)}&longitude=${o.lon.toFixed(4)}&timezone=auto&forecast_days=1`)
+    .then(a => a.ok ? a.json() : null).catch(() => null)
+    .then(d => {
+      if (zoneAnfrage !== schl) return;
+      zoneAnfrage = null;
+      if (ortSchluessel() !== schl) return;
+      const name = d && typeof d.timezone === 'string' && zoneGueltig(d.timezone) ? d.timezone : null;
+      zeitzoneSetzen(name || zoneNachLaenge(zustand.ort.lon), name ? 'ermittelt' : 'angenommen');
+      masskette.letzterTag = null;
+      eingabenAngleichen();
+      sonneSetzen();
+      blattZeichnen();
+    });
 }
 function tagImJahr(datum) {
   return Math.floor((datum - new Date(datum.getFullYear(), 0, 0)) / 86400000);
@@ -2824,6 +2953,7 @@ function himmelFaerben() {
 }
 
 function sonneSetzen() {
+  zeitzonePruefen();
   const { hoehe, azimut } = sonnenstand(zustand.zeitpunkt);
   zustand.sonne = { hoehe, azimut };
 
@@ -4788,9 +4918,13 @@ const masskette = {
       this.grenzen = tagesGrenzen(zustand.zeitpunkt);
       this.letzterTag = tagSchluessel;
       const { auf, unter } = this.grenzen;
+      const zone = zustand.zeitzone.herkunft === 'angenommen'
+        ? tx.zeit.zoneAngenommen(zonenKuerzel()) : zonenKuerzel();
       setzText('st-tag', (auf === null && unter === null)
         ? (zustand.sonne.hoehe > 0 ? tx.zeit.tagDurch : tx.zeit.nachtDurch)
-        : `${minutenText(auf)} · ${minutenText(unter)}`);
+        : `${minutenText(auf)} · ${minutenText(unter)} ${zone}`);
+      const st = $('st-tag');
+      if (st) st.title = tx.zeit.zoneTitel(zustand.zeitzone.name, zustand.zeitzone.herkunft);
     }
     const aufStd = this.grenzen.auf !== null ? this.grenzen.auf / 60 : null;
     const unterStd = this.grenzen.unter !== null ? this.grenzen.unter / 60 : null;
@@ -6394,7 +6528,7 @@ BLAETTER.bahn = {
       { farbe: schemaFarbe('--bahn').getStyle(),    text: tx.zeit.juni21, kurz: tx.zeit.juni },
       { farbe: schemaFarbe('--bahn-2').getStyle(),  text: tx.zeit.maerz21, kurz: tx.zeit.maerz },
       { farbe: schemaFarbe('--bahn-3').getStyle(),  text: tx.zeit.dez21, kurz: tx.zeit.dez },
-      { farbe: schemaFarbe('--tinte-3').getStyle(), text: tx.bahn.analemmaLang(tx.zeit.mez), kurz: tx.bahn.analemmaKurz(tx.zeit.mez) },
+      { farbe: schemaFarbe('--tinte-3').getStyle(), text: tx.bahn.analemmaLang(zonenKuerzel(undefined, true)), kurz: tx.bahn.analemmaKurz(zonenKuerzel(undefined, true)) },
     ]};
   },
 
@@ -6500,11 +6634,11 @@ BLAETTER.bahn = {
     // auf 191,19°, bei einem Tagesschritt von 0,2 Grad.
     //
     // Die Sonne springt dabei nicht, die Uhr tut es. Also wird die Stunde in
-    // MEZ festgehalten und die angezeigte Uhrzeit springt — die ist es ja
+    // Normalzeit festgehalten und die angezeigte Uhrzeit springt — die ist es ja
     // auch, die in Wirklichkeit springt. Der Lauf bleibt stetig, die Marke
     // bleibt auf dem Analemma, und beides stimmt zugleich.
     const anfang = zustand.zeitpunkt;
-    const mez = anfang.getHours() - (istSommerzeit(anfang) ? 1 : 0)
+    const normal = anfang.getHours() - (zonenVersatz(anfang) - normalVersatz(anfang.getFullYear()))
               + anfang.getMinutes() / 60;
     const schritt = () => {
       if (!this.laeuft) return;
@@ -6512,7 +6646,7 @@ BLAETTER.bahn = {
       let doy = tagImJahr(d) + this.tempo;
       if (doy > 365) doy = 1;
       d.setMonth(0, 1); d.setDate(doy);
-      const stunde = mez + (istSommerzeit(d) ? 1 : 0);
+      const stunde = normal + (zonenVersatz(d) - normalVersatz(d.getFullYear()));
       d.setHours(Math.floor(stunde), Math.round((stunde % 1) * 60), 0, 0);
       eingabenAngleichen();
       sonneSetzen();
@@ -6571,7 +6705,7 @@ BLAETTER.bahn = {
         <div class="klasse"><span class="klasse-probe" style="background:var(--bahn)"></span><span>${tx.zeit.juni21}</span><span class="anteil leise">${tx.bahn.sommer}</span></div>
         <div class="klasse"><span class="klasse-probe" style="background:var(--bahn-2)"></span><span>${tx.zeit.maerz21}</span><span class="anteil leise">${tx.bahn.gleiche}</span></div>
         <div class="klasse"><span class="klasse-probe" style="background:var(--bahn-3)"></span><span>${tx.zeit.dez21}</span><span class="anteil leise">${tx.bahn.winter}</span></div>
-        <div class="klasse"><span class="klasse-probe" style="background:var(--tinte-3);opacity:.85"></span><span>${tx.bahn.analemma}</span><span class="anteil leise">${tx.bahn.stuendlich} · ${tx.zeit.mez}</span></div>
+        <div class="klasse"><span class="klasse-probe" style="background:var(--tinte-3);opacity:.85"></span><span>${tx.bahn.analemma}</span><span class="anteil leise">${tx.bahn.stuendlich} · ${zonenKuerzel(undefined, true)}</span></div>
       </div>
 
       <div class="wertliste">
@@ -7109,12 +7243,12 @@ const WETTER = {
 
   async stunden(datum) {
     const o = zustand.ort;
-    const schl = `${datum}|${o.lat.toFixed(3)},${o.lon.toFixed(3)}`;
+    const schl = `${datum}|${o.lat.toFixed(3)},${o.lon.toFixed(3)}|${zustand.zeitzone.name}`;
     if (this.ablage.has(schl)) return this.ablage.get(schl);
     const u = `${this.kern}?latitude=${o.lat.toFixed(4)}&longitude=${o.lon.toFixed(4)}`
       + `&start_date=${datum}&end_date=${datum}`
       + `&hourly=temperature_2m,direct_radiation,diffuse_radiation,cloud_cover,wind_speed_10m`
-      + `&timezone=auto`;
+      + `&timezone=${encodeURIComponent(zustand.zeitzone.name)}`;
     const a = await fetch(u);
     if (!a.ok) throw new Error(tx.wetter.antwort(a.status));
     const d = await a.json();
@@ -9078,7 +9212,7 @@ function bedienungAnbinden() {
   });
   $('zeit-regler').addEventListener('input', (e) => zeitSetzen(parseFloat(e.target.value)));
   $('zeit-jetzt').addEventListener('click', () => {
-    zustand.zeitpunkt = new Date();
+    zustand.zeitpunkt = jetztAmOrt();
     masskette.letzterTag = null;
     eingabenAngleichen(); sonneSetzen();
     if (zustand.blatt === 'sonne' || zustand.blatt === 'bahn') blattZeichnen();
