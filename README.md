@@ -1,11 +1,10 @@
 # Umbra
 
-**Sun, irradiation and wind on an urban model, in the browser.** Umbra takes a
+**Sun, shadow and irradiation on an urban model, in the browser.** Umbra takes a
 site package from [Nolli](https://github.com/yougop/nolli) and computes how
 long a façade is in the sun (checked against DIN 5034-1), how much radiation
 falls on every surface over a period, how much the ground between the
-buildings receives on a hot day, and how freely a place is exposed to the
-wind.
+buildings receives on a hot day.
 
 Umbra is a single HTML file. There is no build step, no server-side code, no
 account and no API key. Your files are read in the browser and sent nowhere.
@@ -24,7 +23,7 @@ year). Umbra computes the same shadows with the **real** sun for the place and
 the moment, in three dimensions, and turns them into hours of sunlight and
 irradiation.
 
-## The five sheets
+## The four sheets
 
 | Sheet | Question | How |
 |---|---|---|
@@ -32,12 +31,10 @@ irradiation.
 | **2 · Sun path · Year** | From which patch of sky can this place get sun at all? | The daily paths of 21 June, 21 March and 21 December, and the analemmas for every full hour. |
 | **3 · Envelope** | How much direct radiation hits each façade and roof? | One ray per sub-triangle towards the sun, weighted by the angle of incidence, with self- and neighbour shading. At an instant (W/m²) or summed over a period (Wh/m²). |
 | **4 · Urban space** | What does the ground between the buildings receive on a hot day? | Direct sun where it reaches, plus diffuse radiation weighted by the visible share of sky (72 directions). Hourly values for the hottest day of last summer from Open-Meteo; any other day can be entered. Tree crowns attenuate with an assumed transmission (25 % by default). Also shows the sky view, a proxy for night-time cooling. |
-| **5 · Wind exposure** | How open is a point to the wind that actually blows here? | The free fetch in 16 directions, weighted by the energy (v³) of a measured wind rose for the past year from Open-Meteo, at 1.5 m above ground. |
 
 ![Sheet 2 · Sun path over the year](docs/2-sun-path.png)
 ![Sheet 3 · Envelope: irradiation on every façade and roof](docs/3-envelope.png)
 ![Sheet 4 · Urban space: radiation load on a hot day, with markers](docs/4-urban-space.png)
-![Sheet 5 · Wind exposure, with markers](docs/5-wind.png)
 
 Every sheet can be exported as a PNG or as a WebM film over the day or the
 year, always with a footer of place, time, sun position, scale and sheet —
@@ -72,10 +69,8 @@ qualifies. The caveats come from the data contract, not from Umbra's code:
   bound.
 - **Sheet 4** is radiation, not temperature: air temperature, wind at
   pedestrian height and heat stored in paving are not included.
-- **Sheet 5 is not CFD.** No speeds, no recirculation, no comfort criteria
-  (Lawson, NEN 8100); channelling in narrow passages and downdraught in front
-  of tall buildings are missing.
-- **Clock.** Times are Central European (CET/CEST), wherever the site is.
+- **Clock.** Times are the local time of the site, from the time zone in the
+  Nolli package (or looked up at Open-Meteo for older packages).
 
 ## Loading a Nolli package
 
@@ -156,8 +151,8 @@ The code and its comments are written in German; the interface is bilingual.
 
 - **Starter package** — built with Nolli from **OpenStreetMap**,
   © OpenStreetMap contributors, ODbL.
-- **Weather and wind** — [Open-Meteo](https://open-meteo.com/), CC BY 4.0
-  (hourly radiation, temperature archive, wind rose).
+- **Weather** — [Open-Meteo](https://open-meteo.com/), CC BY 4.0
+  (hourly radiation, temperature archive, time zone).
 - **Place search** — Nominatim (OpenStreetMap).
 - **Sun position** — NOAA solar position algorithm.
 - **Rendering** — [three.js](https://threejs.org/) and

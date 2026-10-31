@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Umbra</title>
-<meta name="description" content="Umbra rechnet Besonnung, Einstrahlung, Strahlungslast und Windexposition an einem Städtebaumodell – im Browser, ohne Installation.">
+<meta name="description" content="Umbra rechnet Besonnung, Einstrahlung und Strahlungslast an einem Städtebaumodell – im Browser, ohne Installation.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ccircle cx='13' cy='12' r='7' fill='%23111'/%3E%3Cpath d='M4 27 L28 27 L20 19 L10 19 Z' fill='%233d6fa8'/%3E%3C/svg%3E">
 
 <style>
@@ -1223,7 +1223,7 @@ const datumZiffern = (d) => {
 
 const de = {
   seite: {
-    beschreibung: 'Umbra rechnet Besonnung, Einstrahlung, Strahlungslast und Windexposition an einem Städtebaumodell – im Browser, ohne Installation.',
+    beschreibung: 'Umbra rechnet Besonnung, Einstrahlung und Strahlungslast an einem Städtebaumodell – im Browser, ohne Installation.',
     laden: 'Blatt wird aufgezogen …',
     modelleLaden: 'Modelle werden geladen …',
     ladeVertrag: 'Datenvertrag …',
@@ -1609,41 +1609,15 @@ const de = {
     kronenAus: '<b>Die Bäume sind abgeschaltet und gehen nicht ein.</b> Ohne sie ist dies die Strahlungslast eines baumlosen Quartiers – der Schalter steht über dem Zeichenfeld.',
     quelle: 'Stundenwerte: Open-Meteo, CC BY 4.0.',
   },
-  wind: {
-    name: 'Windexposition',
-    kopf: 'Blatt 5 · Windexposition',
-    sektoren: ['N','NNO','NO','ONO','O','OSO','SO','SSO','S','SSW','SW','WSW','W','WNW','NW','NNW'],
-    klassen: { windstill: 'windstill', geschuetzt: 'geschützt', mittel: 'mittel', stark: 'stark', voll: 'voll' },
-    legende: (a, j, r) => `Windexposition · Anlauf bis ${a} m · Rose ${j} · ${r}`,
-    fehlerRose: 'Open-Meteo nicht erreichbar – ohne Windrose keine Exposition.',
-    holt: 'Holt die Windrose …',
-    rechnen: 'Windexposition rechnen',
-    rose: (j) => `Windrose ${j}`,
-    energieStunden: (h) => `% Energie · ${h} % der Stunden`,
-    mittelGeschw: 'Mittlere Geschwindigkeit',
-    gewichtet: (p) => `Gewichtet nach Energie (v³), nicht nach Häufigkeit: Für die Frage, wo es zieht, zählt die starke Stunde. Die drei stärksten Sektoren tragen ${p} % der Windenergie.`,
-    satz: 'Wie frei der Weg von einem Punkt aus ist, in die Richtungen, aus denen der Wind hier wirklich kommt – gewichtet mit der gemessenen Windrose. <b>Gerechnet wird der freie Anlauf, nicht die Geschwindigkeit.</b>',
-    anlauf: 'Voller Anlauf ab', eng: 'enge Maßstäbe', weit: 'weite Lagen',
-    anlaufSatz: 'Ab welcher freien Strecke ein Punkt als voll angeströmt gilt. Der Wert ist eine <b>Festlegung, keine Messung</b> – er bestimmt, wie streng die Karte ist.',
-    zonen: 'Zonen',
-    lesart: '<b>Blau viel</b>, Pink mittel, <b>Gelb windstill</b>. Ob viel Wind gut ist, sagt das Blatt nicht — im Hitzesommer willkommen, im Januar nicht.',
-    mittel: 'Exposition im Mittel',
-    ueberbautSatz: 'Überbaute Zellen sind <b>gezeichnet, aber nicht gezählt</b> — sonst franste die Karte aus, und ein Anlauf unter einem Dach zählt nicht.',
-    abgrenzungKurz: 'kein CFD · ohne Düsenwirkung und Fallwind',
-    keinCfd: (h) => `<b>Dies ist kein CFD.</b> Keine Geschwindigkeit an einem Punkt, keine Rückströmgebiete, keine Komfortkriterien nach Lawson oder NEN 8100 – die brauchen gerechnete Geschwindigkeiten. Gerechnet ist der freie Anlauf in die Richtungen der gemessenen Windrose, auf ${h} m über Grund.`,
-    fehlend: 'Zwei bekannte Wirkungen fehlen deshalb: die <b>Düsenwirkung</b> in engen Durchgängen, die beschleunigt, obwohl der Anlauf kurz ist – und der <b>Fallwind</b> vor Bauten, die ihre Nachbarn überragen, der von oben kommt und in keiner waagerechten Messung auftaucht.',
-    quelle: 'Bäume gehen nicht ein. Windwerte: Open-Meteo, CC BY 4.0.',
-  },
   wetter: {
     antwort: (s) => `Open-Meteo antwortete mit ${s}`,
     ohneStunden: 'Antwort ohne Stundenwerte',
-    ohneWind: 'Antwort ohne Windwerte',
   },
 };
 
 const en = {
   seite: {
-    beschreibung: 'Umbra computes sunlight hours, irradiation, radiation load and wind exposure on an urban model – in the browser, nothing to install.',
+    beschreibung: 'Umbra computes sunlight hours, irradiation and radiation load on an urban model – in the browser, nothing to install.',
     laden: 'Setting up the sheet …',
     modelleLaden: 'Loading models …',
     ladeVertrag: 'Data contract …',
@@ -2029,35 +2003,9 @@ const en = {
     kronenAus: '<b>Trees are switched off and not included.</b> Without them this is the radiation load of a treeless district – the switch is above the drawing area.',
     quelle: 'Hourly values: Open-Meteo, CC BY 4.0.',
   },
-  wind: {
-    name: 'Wind exposure',
-    kopf: 'Sheet 5 · Wind exposure',
-    sektoren: ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'],
-    klassen: { windstill: 'calm', geschuetzt: 'sheltered', mittel: 'moderate', stark: 'strong', voll: 'full' },
-    legende: (a, j, r) => `Wind exposure · fetch up to ${a} m · rose ${j} · ${r}`,
-    fehlerRose: 'Open-Meteo not reachable – no exposure without a wind rose.',
-    holt: 'Fetching the wind rose …',
-    rechnen: 'Compute wind exposure',
-    rose: (j) => `Wind rose ${j}`,
-    energieStunden: (h) => `% energy · ${h} % of hours`,
-    mittelGeschw: 'Mean speed',
-    gewichtet: (p) => `Weighted by energy (v³), not by frequency: for the question of where it is draughty, the strong hour counts. The three strongest sectors carry ${p} % of the wind energy.`,
-    satz: 'How open the path from a point is, in the directions the wind actually comes from here – weighted by the measured wind rose. <b>What is computed is the free fetch, not the speed.</b>',
-    anlauf: 'Full fetch from', eng: 'tight scales', weit: 'open sites',
-    anlaufSatz: 'The free distance from which a point counts as fully exposed. The value is a <b>definition, not a measurement</b> – it sets how strict the map is.',
-    zonen: 'Zones',
-    lesart: '<b>Blue a lot</b>, pink moderate, <b>yellow calm</b>. Whether a lot of wind is good, the sheet does not say — welcome in a hot summer, not in January.',
-    mittel: 'Average exposure',
-    ueberbautSatz: 'Built-over cells are <b>drawn but not counted</b> — otherwise the map would fray, and a fetch under a roof does not count.',
-    abgrenzungKurz: 'no CFD · without channelling and downdraught',
-    keinCfd: (h) => `<b>This is not CFD.</b> No speed at a point, no recirculation zones, no comfort criteria after Lawson or NEN 8100 – those need computed speeds. What is computed is the free fetch in the directions of the measured wind rose, at ${h} m above ground.`,
-    fehlend: 'Two known effects are therefore missing: <b>channelling</b> in narrow passages, which accelerates although the fetch is short – and the <b>downdraught</b> in front of buildings that tower over their neighbours, which comes from above and shows up in no horizontal measurement.',
-    quelle: 'Trees are not included. Wind data: Open-Meteo, CC BY 4.0.',
-  },
   wetter: {
     antwort: (s) => `Open-Meteo answered with ${s}`,
     ohneStunden: 'Response without hourly values',
-    ohneWind: 'Response without wind values',
   },
 };
 
@@ -4696,7 +4644,7 @@ function planKameraSetzen(seitenverhaeltnis) {
 // Der gezeichnete Schlagschatten hängt am Blatt, nicht an einem Schalter.
 //
 // **Auf den Sonnenblättern ist er der Gegenstand**, dort steht er. **Auf den
-// drei rechnenden Blättern liegt eine Auswertung über dem Modell** — der graue
+// zwei rechnenden Blättern liegt eine Auswertung über dem Modell** — der graue
 // Schatten legt sich darüber und macht aus einer Messfarbe eine dritte. Bei
 // einer Kachel fürs Paket wäre er sogar eingebrannt, genau der Fall, den
 // `_grund` bei Nolli löst.
@@ -4722,8 +4670,8 @@ function schattenNachziehen() {
   });
 }
 
-// Die drei rechnenden Blätter — dort wird der Schatten nicht gezeichnet.
-const OHNE_SCHATTEN = new Set(['einstrahlung', 'boden', 'wind']);
+// Die zwei rechnenden Blätter — dort wird der Schatten nicht gezeichnet.
+const OHNE_SCHATTEN = new Set(['einstrahlung', 'boden']);
 
 // Das Passepartout: Was außerhalb des Rahmens liegt, wird im Plan zugedeckt.
 //
@@ -5266,30 +5214,6 @@ const RAMPEN = {
     name: 'Grauwert',
     stufen: [[0,.95,.95,.94],[1,.07,.07,.07]],
   },
-  // Nur für die Windexposition, deshalb `versteckt`: Sie steht nicht zur Wahl
-  // und erscheint in keiner Rampenreihe. Kein Gelb, kein Orange — ein Blatt,
-  // das keine Hitze zeigt, soll auch nicht nach Hitze aussehen.
-  //
-  // **Gelb → Pink → Blau**, also windstill → mittel → stark. Das ist die
-  // Ladybug-Rampe rückwärts, und es ist die dritte Fassung.
-  //
-  // Zuerst Blau für windstill: Dann war die ruhige Hälfte des Bildes die
-  // dunkelste, und das Blatt betonte, wo nichts ist. Dann Weiß für windstill,
-  // damit die Karte dort unberührt bleibt — elegant, aber unlesbar: **Die
-  // geschützten Stellen sind der eigentliche Fund, und sie waren gar nicht
-  // markiert.** Gemessen liegen 43,7 % der Fläche über 80 % Exposition und
-  // 18,4 % unter 20 %; das Bild bestand also fast nur aus dem oberen Ende.
-  //
-  // Die Weglassregel gilt hier deshalb nicht: Auf diesem Blatt sind **beide**
-  // Enden ein Befund — der Windschatten wie die Zugluft. Wo beide Enden etwas
-  // sagen, darf keines unmarkiert bleiben.
-  //
-  // Gelb für Windstille liest sich zudem richtig herum: warme stehende Luft
-  // gegen kalten Zug.
-  windzug: {
-    name: 'Windzug', versteckt: true,
-    stufen: [[0,1,.92,.27],[.5,.93,.24,.60],[1,.12,.23,.54]],
-  },
 };
 
 function rampenFarbe(rampe, v) {
@@ -5320,7 +5244,7 @@ function rampenCss(rampe) {
 // ═══════════════════════════════════════════════════════════
 //  REGISTER · SCHRIFTFELD · EBENEN
 // ═══════════════════════════════════════════════════════════
-const BLATT_ORDNUNG = ['sonne', 'bahn', 'einstrahlung', 'boden', 'wind'];
+const BLATT_ORDNUNG = ['sonne', 'bahn', 'einstrahlung', 'boden'];
 
 function renderRegister() {
   const liste = $('register-liste');
@@ -5480,7 +5404,7 @@ function flaechenName(n) {
 // dieselbe mit einer Aufgabe, und darum unterscheidet ihn nur seine Farbe.
 //
 // **Ein Marker gehört seinem Blatt.** Die Strahlungslast des Stadtraums auf
-// dem Windblatt zu zeigen, wäre eine Zahl ohne ihre Frage.
+// den Hüllflächen zu zeigen, wäre eine Zahl ohne ihre Frage.
 const merker = {
   punkte: [],
   an: false,
@@ -6794,7 +6718,7 @@ function knopfFortschritt(id, arbeitet, text, anteil, ruheText) {
 BLAETTER.einstrahlung = {
   id:'einstrahlung', get name() { return tx.huelle.name; }, stand:'offen', standNotiz:'',
   veraltetBei:['zeit','geometrie','einstellung'],
-  // Dieselbe Sperre wie auf Blatt 4 und 5 (Nutzerentscheidung vom 17.09.2026):
+  // Dieselbe Sperre wie auf Blatt 4 (Nutzerentscheidung vom 17.09.2026):
   // Die Textur bringt eigene Farben mit, und unter der Messrampe entsteht aus
   // beiden eine dritte, die keine von beiden erklärt. Schwarzplan eröffnet,
   // die Linie steht daneben als der dünnste Grund, den das Paket hat.
@@ -7247,7 +7171,7 @@ const WETTER = {
     if (this.ablage.has(schl)) return this.ablage.get(schl);
     const u = `${this.kern}?latitude=${o.lat.toFixed(4)}&longitude=${o.lon.toFixed(4)}`
       + `&start_date=${datum}&end_date=${datum}`
-      + `&hourly=temperature_2m,direct_radiation,diffuse_radiation,cloud_cover,wind_speed_10m`
+      + `&hourly=temperature_2m,direct_radiation,diffuse_radiation,cloud_cover`
       + `&timezone=${encodeURIComponent(zustand.zeitzone.name)}`;
     const a = await fetch(u);
     if (!a.ok) throw new Error(tx.wetter.antwort(a.status));
@@ -7259,47 +7183,9 @@ const WETTER = {
       diffus: d.hourly.diffuse_radiation.map(v => v ?? 0),
       luft: d.hourly.temperature_2m,
       wolken: d.hourly.cloud_cover,
-      wind: d.hourly.wind_speed_10m,
     };
     this.ablage.set(schl, w);
     return w;
-  },
-
-  // Die Windrose eines vollen Jahres, in sechzehn Sektoren.
-  //
-  // Gewichtet wird nach **Energie** (v³), nicht nach Häufigkeit: Für die
-  // Frage, wo es zieht, zählt die starke Stunde und nicht die laue. In
-  // Hamburg macht das den Unterschied zwischen 35,5 % der Stunden und 54,8 %
-  // der Energie für WSW–SW–W.
-  async windrose() {
-    const o = zustand.ort;
-    const jetzt = new Date();
-    const jahr = jetzt.getFullYear() - 1;
-    const schl = `wind|${jahr}|${o.lat.toFixed(2)},${o.lon.toFixed(2)}`;
-    if (this.ablage.has(schl)) return this.ablage.get(schl);
-    const u = `${this.kern}?latitude=${o.lat.toFixed(4)}&longitude=${o.lon.toFixed(4)}`
-      + `&start_date=${jahr}-01-01&end_date=${jahr}-12-31`
-      + `&hourly=wind_speed_10m,wind_direction_10m&timezone=auto`;
-    const a = await fetch(u);
-    if (!a.ok) throw new Error(tx.wetter.antwort(a.status));
-    const d = await a.json();
-    const v = d.hourly?.wind_speed_10m, r = d.hourly?.wind_direction_10m;
-    if (!Array.isArray(v) || !Array.isArray(r)) throw new Error(tx.wetter.ohneWind);
-    const haeuf = new Array(16).fill(0), energie = new Array(16).fill(0);
-    let n = 0, summe = 0;
-    for (let i = 0; i < v.length; i++) {
-      if (v[i] == null || r[i] == null) continue;
-      const k = Math.floor(((r[i] + 11.25) % 360) / 22.5) % 16;
-      haeuf[k]++; energie[k] += v[i] ** 3; n++; summe += v[i];
-    }
-    const e = energie.reduce((a2, b) => a2 + b, 0) || 1;
-    const rose = {
-      jahr, stunden: n, mittel: n ? summe / n : 0,
-      anteil: energie.map(x => x / e),
-      haeufigkeit: haeuf.map(x => n ? x / n : 0),
-    };
-    this.ablage.set(schl, rose);
-    return rose;
   },
 
   // Der heißeste Tag des letzten vollen Sommers. Ein Hitzeblatt für einen
@@ -7848,397 +7734,6 @@ BLAETTER.boden = {
       if (this.auflage) { this.auflage.material.opacity = this.deckung;
         this.auflage.material.transparent = this.deckung < 1; this.auflage.material.needsUpdate = true; }
     });
-  },
-};
-
-// ─────────────────────────────────────────────────────────
-//  BLATT 5 · WINDEXPOSITION
-//
-//  **Dies ist kein CFD, und es soll auch keines vortäuschen.**
-//
-//  Gerechnet wird eine rein geometrische Größe: Wie weit ist der Weg von
-//  einem Punkt aus frei, in die Richtungen, aus denen der Wind an diesem Ort
-//  wirklich kommt — gewichtet mit der gemessenen Energierose eines vollen
-//  Jahres. Also der freie **Anlauf**, nicht die Geschwindigkeit.
-//
-//  Warum nicht mehr: Die drei einfachen Wege zur Strömung sind alle Fallen.
-//  Ein Lattice-Boltzmann in 2D läuft flüssig im Browser, ist aber flach — er
-//  kennt den Fallwind an hohen Fassaden nicht, und genau der macht die
-//  Beschwerden am Fuß von Hochhäusern. Potentialströmung kennt keine Ablösung
-//  und keinen Nachlauf, wäre also systematisch zu ruhig. Echtes 3D-RANS ist
-//  keine Browserarbeit und liefert bei schlechtem Aufbau selbstbewusst
-//  falsche Zahlen.
-//
-//  Autodesk Forma bestätigt das von der anderen Seite: Dort läuft im Browser
-//  **kein CFD, sondern ein trainiertes Surrogat**; das eigentliche CFD
-//  rechnet 30–90 Minuten in der Cloud. Und Forma kennzeichnet sichtbar,
-//  welches von beidem man ansieht. Der vierte Weg — ein Surrogat — setzt
-//  einen Bestand gerechneter CFD-Fälle voraus, den Umbra nicht hat und nicht
-//  herstellen kann.
-//
-//  Was hier steht, ist deshalb die Frage, die Geometrie beantworten kann:
-//  **wo es zieht, weil nichts im Weg steht.** Nicht, wie stark.
-// ─────────────────────────────────────────────────────────
-const WIND_SEKTOREN = ['N','NNO','NO','ONO','O','OSO','SO','SSO','S','SSW','SW','WSW','W','WNW','NW','NNW'];
-
-BLAETTER.wind = {
-  id:'wind', get name() { return tx.wind.name; }, stand:'offen', standNotiz:'',
-
-  // ── Zonen, kein Verlauf ──────────────────────────────────────────
-  //
-  // Der stufenlose Verlauf war nicht zu lesen, und *die Messung sagt warum*:
-  // Über 34.573 freie Zellen liegt der Median bei **0,85**, und **45 % aller
-  // Zellen sitzen im obersten Zehntel**. Nur 2 % liegen unter 0,1. Eine Skala,
-  // die ihre Farben gleichmäßig über 0 bis 1 verteilt, verbraucht also die
-  // Hälfte ihres Vorrats an einem Wert, den fast die halbe Fläche hat — und
-  // drückt alles Unterscheidbare in einen rosa Schmier.
-  //
-  // **Zonen sind ohnehin die Frage dieses Blattes**: nicht „wie viel genau",
-  // sondern „wo zieht es und wo nicht". Fünf Klassen antworten darauf, und ihre
-  // Grenzen sind eine Festlegung, keine Messung — sie stehen darum in der
-  // Zeichenerklärung.
-  //
-  // Die Farben fallen von Stufe zu Stufe in der Helligkeit (88 → 26), damit die
-  // Reihenfolge auch ohne Farbsehen erkennbar bleibt und die Multiplikation
-  // über den Boden sie nicht durcheinanderbringt.
-  // **Blau über Magenta nach Gelb**, und zwar durchweg gesättigt. Die erste
-  // Fassung setzte für „geschützt" ein blasses Rosa und für „stark" ein
-  // gedämpftes Blauviolett; unter der Multiplikation über den Boden wurden
-  // beide grau, und eine graue Stufe in einer Farbfolge liest sich wie ein
-  // Fehler — als fehlte dort ein Wert. Der Weg von Blau nach Gelb führt über
-  // Violett, Magenta und Orange, und auf diesem Weg gibt es kein Grau.
-  // Fünf Stufen, **Helligkeit streng fallend** (62 · 56 · 48 · 42 · 36) und
-  // Sättigung überall über 60. Der erste Versuch hielt die Farbfolge ein, aber
-  // nicht die Helligkeit — „stark" war heller als „mittel" und dazu die
-  // blasseste Stufe von allen. Genau die wurde unter der Multiplikation grau.
-  // **Zwei Ordnungen müssen zusammenfallen:** die Reihenfolge der Farben und
-  // die der Helligkeit. Dann liest die Karte auch, wer Farben nicht trennt.
-  klassen: [
-    { bis:0.20, get name() { return tx.wind.klassen.windstill; },  farbe:[0.981, 0.813, 0.259] },
-    { bis:0.45, get name() { return tx.wind.klassen.geschuetzt; }, farbe:[0.934, 0.410, 0.186] },
-    { bis:0.70, get name() { return tx.wind.klassen.mittel; },     farbe:[0.855, 0.106, 0.543] },
-    { bis:0.90, get name() { return tx.wind.klassen.stark; },      farbe:[0.487, 0.168, 0.672] },
-    { bis:1.01, get name() { return tx.wind.klassen.voll; },       farbe:[0.090, 0.225, 0.630] },
-  ],
-  klasse(v) {
-    const k = this.klassen;
-    for (let i = 0; i < k.length; i++) if (v < k[i].bis) return k[i];
-    return k[k.length - 1];
-  },
-  klassenText() {
-    let vorher = 0;
-    return this.klassen.map(k => {
-      const von = Math.round(vorher * 100), bis = Math.round(Math.min(1, k.bis) * 100);
-      vorher = k.bis;
-      return { ...k, spanne: `${von}–${bis} %` };
-    });
-  },
-  veraltetBei:['geometrie','einstellung'],
-
-  // Die Auflage ist ein **gleichmäßiges Raster**; der Weltpunkt nennt die
-  // Zelle unmittelbar. Kein Strahl nötig, keine Dreiecksuche — und derselbe
-  // Weg liefert denselben Wert, den die Farbe an dieser Stelle zeigt.
-  merkzelle(treffer) {
-    const u = this.auflage?.userData;
-    if (!u) return null;
-    const ix = Math.floor((treffer.point.x - u.x0 + u.z / 2) / u.z);
-    const iz = Math.floor((treffer.point.z - u.z0 + u.z / 2) / u.z);
-    if (ix < 0 || iz < 0 || ix >= u.n || iz >= u.n) return null;
-    const k = iz * u.n + ix;
-    // Unter einem Dach wird gezeichnet, aber nicht gezählt (Franseregel) —
-    // ein Wert von dort wäre eine Null, die nichts über den Stadtraum sagt.
-    if (u.frei && !u.frei[k]) return { ueberbaut: true };
-    return { k, u };
-  },
-
-  merkwert(treffer) {
-    const z = this.merkzelle(treffer);
-    if (!z) return null;
-    if (z.ueberbaut) return { was: tx.wind.name, wert: tx.boden.ueberbaut };
-    const v = z.u.werte?.[z.k];
-    return v == null ? null : { was: tx.wind.name, wert: `${Math.round(v * 100)} %` };
-  },
-
-  // Welche Böden dieses Blatt zulässt, und womit es aufmacht.
-  //
-  // Eine Windkarte ist eine Fläche über einer Fläche. Der **Schwarzplan** ist
-  // die Eröffnung — überall in Umbra, damit das Werkzeug auf jedem Blatt
-  // gleich anfängt. Die **Linie** steht daneben als der dünnste Grund, den das
-  // Paket hat: nur Konturen, und die Farbe kommt unverfälscht durch.
-  //
-  // Die **Aufsicht** ist selbst farbig; multipliziert man eine Messrampe
-  // darüber, entsteht eine dritte Farbe, die weder das eine noch das andere
-  // erklärt. Deshalb gesperrt — und zwar gesperrt und nicht nur abgeraten.
-  darstellungen:{ erlaubt:['linie','schwarzplan'], vorgabe:'schwarzplan' },
-  auflage:null, laeuft:false, abbruch:false,
-  zelle:8, rampe:'windzug', deckung:0.92, mischung:'multiplizieren',
-  anlauf:200, hoehe:1.5,
-  rose:null, rosefehler:null,
-  letzterSchnitt:0, letzteDauer:0, letzteZellen:0, letzteStrahlen:0,
-
-  legende() {
-    if (this.stand !== 'gueltig') return null;
-    // Die Enden tragen ihre Bedeutung, nicht nur ihre Zahl. „0 %" und „100 %"
-    // sagen niemandem, welches Ende der Wind ist — genau diese Frage kam beim
-    // ersten Ansehen, und sie kam zu Recht.
-    // Fünf Proben statt eines Verlaufs — dieselbe Auskunft wie in der Schiene,
-    // und die Grenzen stehen dabei, weil sie festgelegt und nicht gemessen sind.
-    return { art:'proben',
-             eintraege: this.klassenText().map(k => ({
-               farbe: `rgb(${k.farbe.map(c => Math.round(c*255)).join(',')})`,
-               text: `${k.name} ${k.spanne}`, kurz: k.name })),
-             titel: tx.wind.legende(this.anlauf, this.rose?.jahr ?? '–', tx.regler.raster(this.zelle))
-               + (this.mischung === 'multiplizieren' ? tx.regler.multipliziert : '') };
-  },
-
-  async beimBetreten() {
-    if (!this.rose) this.roseHolen();
-    if (this.auflage) szene.add(this.auflage);
-    await blattDarstellungSetzen(this);
-  },
-  beimVerlassen() { if (this.auflage) szene.remove(this.auflage); },
-  beiZeit() {},
-  beiGeometrie() { this.aufraeumen(); },
-  aufraeumen() { if (this.auflage) { szene.remove(this.auflage); this.auflage = null; } },
-
-  async roseHolen() {
-    try { this.rose = await WETTER.windrose(); this.rosefehler = null; }
-    catch (e) { this.rosefehler = 'fehlerRose'; }
-    if (zustand.blatt === 'wind') blattZeichnen();
-  },
-
-  strahlenzahl() {
-    const n = Math.max(2, Math.floor(zustand.rechenweite / this.zelle));
-    return n * n * 17;
-  },
-
-  async rechnen() {
-    if (this.laeuft) { this.abbruch = true; return; }
-    const sperre = hindernis();
-    if (!sperre) return;
-    this.laeuft = true; this.abbruch = false;
-    const beginn = performance.now();
-    standSetzen('wind', 'rechnet');
-    this.knopfSetzen(true, tx.wind.holt, 0.02);
-    await atmen();
-    if (!this.rose) {
-      try { this.rose = await WETTER.windrose(); }
-      catch (e) { this.rosefehler = String(e.message || e); this.laeuft = false;
-                  this.knopfSetzen(false); standSetzen('wind', 'offen'); blattZeichnen(); return; }
-    }
-    this.aufraeumen();
-
-    // Die sechzehn Richtungen, aus denen der Wind kommt. Ein Sektor heißt
-    // nach seiner Herkunft — „WSW" ist Wind *aus* Westsüdwest, der Strahl
-    // läuft also nach WSW hinaus, dem Wind entgegen.
-    const richtungen = WIND_SEKTOREN.map((_, k) => {
-      const grad = k * 22.5;
-      const rad = grad * Math.PI / 180;
-      // Nord ist −Z, Ost ist +X (siehe objAufrichten).
-      return new THREE.Vector3(Math.sin(rad), 0, -Math.cos(rad));
-    });
-
-    const kasten = auswertungsKasten();
-    const z = this.zelle;
-    const n = Math.max(2, Math.floor((kasten.max.x - kasten.min.x) / z));
-    const x0 = kasten.min.x + z/2, z0 = kasten.min.z + z/2;
-    const runter = new THREE.Vector3(0, -1, 0);
-    const OBEN = 600;
-    const werte = new Float32Array(n * n);
-    const frei = new Uint8Array(n * n);
-    let erledigt = 0, offen = 0, summe = 0;
-    const gesamt = n * n;
-
-    for (let iz = 0; iz < n; iz++) {
-      for (let ix = 0; ix < n; ix++) {
-        const k = iz * n + ix;
-        const wx = x0 + ix * z, wz = z0 + iz * z;
-        // Wie auf Blatt 4: gezeichnet wird alles, gezählt nur das Freie.
-        const ueberbaut = OBEN - ersterTreffer(wx, OBEN, wz, runter, sperre) > 0.5;
-        frei[k] = ueberbaut ? 0 : 1;
-        if (!ueberbaut) offen++;
-        let e = 0;
-        for (let d = 0; d < 16; d++) {
-          const anteil = this.rose.anteil[d];
-          if (anteil < 0.001) continue;
-          const weg = ersterTreffer(wx, this.hoehe, wz, richtungen[d], sperre);
-          e += anteil * Math.min(weg, this.anlauf) / this.anlauf;
-        }
-        werte[k] = e; if (!ueberbaut) summe += e;
-        erledigt++;
-        if ((erledigt & 255) === 0) {
-          this.knopfSetzen(true, tx.stand.rechnetKnopf, 0.05 + (erledigt / gesamt) * 0.93);
-          await atmen();
-          if (this.abbruch) { this.laeuft = false; this.knopfSetzen(false);
-                              standSetzen('wind', 'offen'); this.abbruch = false; blattZeichnen(); return; }
-        }
-      }
-    }
-
-    this.letzteZellen = offen;
-    this.letzterSchnitt = offen ? summe / offen : 0;
-    this.letzteStrahlen = this.strahlenzahl();
-    this.auflage = this.flaecheBauen(n, z, x0, z0, werte, frei);
-    szene.add(this.auflage);
-
-    this.laeuft = false;
-    this.letzteDauer = (performance.now() - beginn) / 1000;
-    this.knopfSetzen(false);
-    standSetzen('wind', 'gueltig');
-    $('modul-werte').innerHTML = this.werte();
-    zumErgebnis();
-  },
-
-  flaecheBauen(n, z, x0, z0, werte, frei) {
-    const ecken = [], farben = [];
-    const halb = z / 2, Y = 0.07;
-    for (let iz = 0; iz < n; iz++) {
-      for (let ix = 0; ix < n; ix++) {
-        const k = iz * n + ix;
-        const cx = x0 + ix * z, cz = z0 + iz * z;
-        ecken.push(cx-halb,Y,cz-halb, cx+halb,Y,cz-halb, cx+halb,Y,cz+halb,
-                   cx-halb,Y,cz-halb, cx+halb,Y,cz+halb, cx-halb,Y,cz+halb);
-        const f = this.klasse(werte[k]).farbe;
-        for (let e = 0; e < 6; e++) farben.push(f[0], f[1], f[2]);
-      }
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.Float32BufferAttribute(ecken, 3));
-    geo.setAttribute('color', new THREE.Float32BufferAttribute(farben, 3));
-    const mult = this.mischung === 'multiplizieren';
-    const netz = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
-      vertexColors:true, transparent:true, opacity:this.deckung,
-      blending: mult ? THREE.MultiplyBlending : THREE.NormalBlending,
-      depthWrite:false, side:THREE.DoubleSide,
-    }));
-    netz.renderOrder = 2;
-    netz.userData = { n, z, x0, z0, werte, frei };
-    return netz;
-  },
-
-  umfaerben() {
-    if (!this.auflage) return;
-    const u = this.auflage.userData;
-    const neu = this.flaecheBauen(u.n, u.z, u.x0, u.z0, u.werte, u.frei);
-    szene.remove(this.auflage);
-    this.auflage.geometry.dispose(); this.auflage.material.dispose();
-    this.auflage = neu; szene.add(neu);
-  },
-
-  knopfSetzen(a, t, p) { knopfFortschritt('haupt-wind', a, t, p, tx.wind.rechnen); },
-  aktion() {
-    return `<button class="hauptaktion" id="haupt-wind" data-arbeitet="false">
-        <span class="fortschritt"></span><span class="ring"></span><span class="schrift">${tx.wind.rechnen}</span><span class="zaehler"></span>
-      </button>`;
-  },
-
-  roseTafel() {
-    if (!this.rose) return '';
-    const paare = this.rose.anteil.map((a, i) => ({ s: tx.wind.sektoren[i], a, h: this.rose.haeufigkeit[i] }))
-      .sort((x, y) => y.a - x.a).slice(0, 4);
-    const drei = paare.slice(0, 3).reduce((s, p) => s + p.a, 0);
-    return `<div class="teil">
-      <div class="teil-kopf"><span class="t-label">${tx.wind.rose(this.rose.jahr)}</span><span class="t-data">${zahlText(this.rose.stunden)} h</span></div>
-      <dl class="werteliste">
-        ${paare.map(p => `<div class="wertzeile"><dt>${p.s}</dt><dd>${Math.round(p.a*100)} <span class="einheit">${tx.wind.energieStunden(Math.round(p.h*100))}</span></dd></div>`).join('')}
-        <div class="wertzeile"><dt>${tx.wind.mittelGeschw}</dt><dd>${kommaText(this.rose.mittel, 1)} <span class="einheit">km/h</span></dd></div>
-      </dl>
-      <p class="t-prose leise" style="margin:var(--block) 0 0">${tx.wind.gewichtet(Math.round(drei*100))}</p>
-    </div>`;
-  },
-
-  steuerung() {
-    return `
-      <div class="teil-kopf">
-        <span class="t-label">${tx.wind.kopf}</span>
-        <span class="t-data" id="stand-wind" data-stand="${this.stand}">${STAND_TEXT[this.stand]}</span>
-      </div>
-      <p class="t-prose" style="margin:0">${tx.wind.satz}</p>
-      ${this.rosefehler ? `<div class="urteil" data-mahnt="true">${tx.wind[this.rosefehler] ?? this.rosefehler}</div>` : ''}
-
-      <div class="regler">
-        <div class="regler-kopf"><span>${tx.regler.ausschnitt}</span><span class="wert"><span id="weite-wert">${zustand.rechenweite}</span> m</span></div>
-        <input type="range" id="rad-weite" min="200" max="${Math.max(1800, volleWeite())}" step="50" value="${zustand.rechenweite}">
-        <div class="regler-enden"><span>${tx.regler.naechste}</span><span>${tx.regler.ganzes}</span></div>
-      </div>
-
-      <div class="regler">
-        <div class="regler-kopf"><span>${tx.regler.rasterweite}</span><span class="wert"><span id="zelle-wert">${this.zelle}</span> m</span></div>
-        <input type="range" id="rad-zelle" min="2" max="25" step="1" value="${this.zelle}">
-      </div>
-      <div id="wind-aufwand">${aufwandshinweis(this.strahlenzahl(), this.letzteStrahlen, this.letzteDauer)}</div>
-
-      <div class="regler">
-        <div class="regler-kopf"><span>${tx.wind.anlauf}</span><span class="wert"><span id="anlauf-wert">${this.anlauf}</span> m</span></div>
-        <input type="range" id="rad-anlauf" min="50" max="600" step="25" value="${this.anlauf}">
-        <div class="regler-enden"><span>${tx.wind.eng}</span><span>${tx.wind.weit}</span></div>
-        <p class="t-prose leise" style="margin:var(--eng) 0 0">${tx.wind.anlaufSatz}</p>
-      </div>
-
-      <div>
-        <span class="t-label" style="display:block;margin-bottom:var(--reihe)">${tx.regler.mischung}</span>
-        <div class="wahlreihe">
-          <button class="knopf" data-mischung="multiplizieren" aria-pressed="${this.mischung==='multiplizieren'}">${tx.regler.multiplizierend}<small>${tx.regler.bodenLesbar}</small></button>
-          <button class="knopf" data-mischung="deckend" aria-pressed="${this.mischung==='deckend'}">${tx.regler.deckend}<small>${tx.regler.farbeLegende}</small></button>
-        </div>
-      </div>
-
-      <div>
-        <span class="t-label" style="display:block;margin-bottom:var(--reihe)">${tx.wind.zonen}</span>
-        ${this.klassenText().map(k => `<div class="klasse">
-          <span class="klasse-probe" style="background:rgb(${k.farbe.map(c => Math.round(c*255)).join(',')})"></span>
-          <span>${k.name}</span><span class="anteil leise">${k.spanne}</span>
-        </div>`).join('')}
-      </div>
-
-      <div class="regler">
-        <div class="regler-kopf"><span>${tx.regler.deckkraft}</span><span class="wert" id="deckung-wert">${Math.round(this.deckung*100)} %</span></div>
-        <input type="range" id="rad-deckung" min="0.2" max="1" step="0.05" value="${this.deckung}">
-      </div>
-`;
-  },
-
-  werte() {
-    const hat = this.stand === 'gueltig';
-    return `
-      <div class="teil">
-        <div class="teil-kopf"><span class="t-label">${tx.regler.ergebnis}</span></div>
-        <p class="t-prose leise" style="margin:0 0 var(--block)">${tx.wind.lesart}</p>
-        <dl class="werteliste">
-          <div class="wertzeile haupt"><dt>${tx.wind.mittel}</dt><dd${hat?'':' class="leer"'}>${hat?`${Math.round(this.letzterSchnitt*100)} <span class="einheit">%</span>`:'–'}</dd></div>
-          <div class="wertzeile"><dt>${tx.regler.freieFlaeche}</dt><dd${hat?'':' class="leer"'}>${hat?`${kommaText(this.letzteZellen*this.zelle*this.zelle/10000, 1)} <span class="einheit">ha</span>`:'–'}</dd></div>
-          <div class="wertzeile"><dt>${tx.regler.dauer}</dt><dd${hat?'':' class="leer"'}>${hat?`${kommaText(this.letzteDauer, 1)} <span class="einheit">s</span>`:'–'}</dd></div>
-        </dl>
-        <p class="t-prose leise" style="margin:var(--block) 0 0">${tx.wind.ueberbautSatz}</p>
-      </div>
-      ${this.roseTafel()}
-      <details class="teil abgrenzung">
-        <summary><span class="t-label">${tx.regler.nichtHier}</span><span class="falte-zeichen" aria-hidden="true"></span><span class="abgrenzung-kurz">${tx.wind.abgrenzungKurz}</span></summary>
-        <div class="urteil" data-mahnt="true">${tx.wind.keinCfd(zahlText(this.hoehe))}</div>
-        <p class="t-prose leise" style="margin:var(--block) 0 0">${tx.wind.fehlend}</p>
-        <p class="t-prose leise" style="margin:var(--eng) 0 0">${tx.wind.quelle}</p>
-      </details>
-`;
-  },
-
-  anbinden() {
-    $('haupt-wind')?.addEventListener('click', () => this.rechnen());
-    const nach = () => { const f = $('wind-aufwand');
-      if (f) f.innerHTML = aufwandshinweis(this.strahlenzahl(), this.letzteStrahlen, this.letzteDauer); };
-    $('rad-zelle')?.addEventListener('input', (e) => {
-      this.zelle = +e.target.value; setzText('zelle-wert', this.zelle); nach();
-      if (this.stand === 'gueltig') standSetzen('wind', 'veraltet'); });
-    $('rad-weite')?.addEventListener('input', (e) => {
-      zustand.rechenweite = +e.target.value; setzText('weite-wert', zustand.rechenweite); nach();
-      if (this.stand === 'gueltig') standSetzen('wind', 'veraltet'); });
-    $('rad-anlauf')?.addEventListener('input', (e) => {
-      this.anlauf = +e.target.value; setzText('anlauf-wert', this.anlauf);
-      if (this.stand === 'gueltig') standSetzen('wind', 'veraltet'); });
-    $('rad-deckung')?.addEventListener('input', (e) => {
-      this.deckung = +e.target.value; setzText('deckung-wert', Math.round(this.deckung*100) + ' %');
-      if (this.auflage) { this.auflage.material.opacity = this.deckung; this.auflage.material.needsUpdate = true; } });
-    document.querySelectorAll('#modul-steuerung [data-mischung]').forEach(k =>
-      k.addEventListener('click', () => { this.mischung = k.dataset.mischung; blattZeichnen(); this.umfaerben(); }));
   },
 };
 
@@ -8893,7 +8388,7 @@ const AUSGABE = {
       // sein, wer eine Darstellung gemacht hat — sonst steht eine gerechnete
       // Karte neben gezeichneten und sieht aus wie eine von ihnen.
       const kachelName = { sonne:'besonnung', bahn:'sonnenbahn',
-        einstrahlung:'huellflaechen', boden:'strahlungslast', wind:'windexposition' };
+        einstrahlung:'huellflaechen', boden:'strahlungslast' };
       const name = `${kachelName[zustand.blatt] || zustand.blatt}_umbra.png`;
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');

@@ -117,7 +117,6 @@ await klick('[data-modus="zeitraum"]'); await warte(500); await sammeln();
 await s.keyboard.press('4'); await warte(3000);
 await klick('[data-zeigt="himmel"]'); await warte(500); await sammeln();
 await klick('[data-mischung="deckend"]'); await warte(500); await sammeln();
-await s.keyboard.press('5'); await warte(3000); await sammeln();
 
 // Hin und zurück
 await klick('#sprach-wahl [data-sprache="de"]'); await warte(1500);
