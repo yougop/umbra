@@ -88,7 +88,7 @@ await sammeln();
 await s.screenshot({ path: path.join(ziel, '1-start-en.png') });
 
 // Jedes Blatt, in 3D und im Plan
-for (let n = 1; n <= 5; n++) {
+for (let n = 1; n <= 4; n++) {
   await s.keyboard.press(String(n)); await warte(1500);
   await sammeln();
   await klick('[data-ansicht="plan"]'); await warte(600); await sammeln();

@@ -2,17 +2,20 @@
 
 **Sun, shadow and irradiation on an urban model, in the browser.** Umbra takes a
 site package from [Nolli](https://github.com/yougop/nolli) and computes how
-long a façade is in the sun (checked against DIN 5034-1), how much radiation
-falls on every surface over a period, how much the ground between the
-buildings receives on a hot day.
+long a façade or roof is in the sun (checked against DIN 5034-1), how much
+radiation falls on every surface over a period, and how much the ground
+between the buildings receives on a hot day.
+
+**▶ Open the app: [zinssmeister.info/app/umbra](https://zinssmeister.info/app/umbra/)**
+· Project page: [zinssmeister.info/umbra](https://zinssmeister.info/umbra)
+· Companion tool that makes the site packages:
+[Nolli](https://zinssmeister.info/app/nolli/) ([repository](https://github.com/yougop/nolli))
+· By [Volker Zinssmeister](https://zinssmeister.info/)
 
 Umbra is a single HTML file. There is no build step, no server-side code, no
 account and no API key. Your files are read in the browser and sent nowhere.
 
-**Live:** [zinssmeister.info/app/umbra](https://zinssmeister.info/app/umbra/) ·
-project page [zinssmeister.info/umbra](https://zinssmeister.info/umbra)
-
-![Sheet 1 · Sun position: sunlight check against DIN 5034-1 and the series of four times of day, HafenCity Hamburg](docs/1-sun-position.png)
+![Sheet 1 · Sun position: sunlight check against DIN 5034-1 on a roof, and the series of four times of day, HafenCity Hamburg](docs/1-sun-position.png)
 
 ## Where it sits
 
@@ -23,6 +26,29 @@ year). Umbra computes the same shadows with the **real** sun for the place and
 the moment, in three dimensions, and turns them into hours of sunlight and
 irradiation.
 
+## Using it
+
+Umbra opens with a starter package already loaded: HafenCity, Hamburg. Your own
+site comes in as a Nolli package (see below).
+
+- **Sheets** on the left, or keys **1–4**. Each sheet asks one question; the
+  panel on the right holds its settings, its result and what it does not show.
+- **Time** in the bar at the bottom: drag along the day, type a date and time,
+  or press **Now**. All times are the local time of the site.
+- **View:** drag to orbit, right button or Shift to pan, wheel to zoom.
+  **2D** looks straight down on the package frame, north up, at a true scale.
+- **Ground:** figure-ground, line or the top-view texture from the package.
+  **Trees** switches the crowns from the package on and off.
+- **Markers:** switch them on and click the model to pin a computed value to
+  its place. On sheet 1 the first marker runs the sunlight check.
+- **Export** (right panel): a PNG or a WebM film over the day or the year, with
+  a footer of place, time, sun position, scale and sheet.
+- **DE | EN** switches the language; the half circle next to it switches
+  between light and dark. **Read me** leads here.
+
+The address keeps sheet, time and place (`#blatt=3&t=2026-03-21T15:00&o=…`),
+so a state can be linked.
+
 ## The four sheets
 
 | Sheet | Question | How |
@@ -32,9 +58,9 @@ irradiation.
 | **3 · Envelope** | How much direct radiation hits each façade and roof? | One ray per sub-triangle towards the sun, weighted by the angle of incidence, with self- and neighbour shading. At an instant (W/m²) or summed over a period (Wh/m²). |
 | **4 · Urban space** | What does the ground between the buildings receive on a hot day? | Direct sun where it reaches, plus diffuse radiation weighted by the visible share of sky (72 directions). Hourly values for the hottest day of last summer from Open-Meteo; any other day can be entered. Tree crowns attenuate with an assumed transmission (25 % by default). Also shows the sky view, a proxy for night-time cooling. |
 
-![Sheet 2 · Sun path over the year](docs/2-sun-path.png)
-![Sheet 3 · Envelope: irradiation on every façade and roof](docs/3-envelope.png)
-![Sheet 4 · Urban space: radiation load on a hot day, with markers](docs/4-urban-space.png)
+![Sheet 2 · Sun path over the year: the three daily paths and the hourly analemmas](docs/2-sun-path.png)
+![Sheet 3 · Envelope: direct irradiation on every façade and roof over 21 March](docs/3-envelope.png)
+![Sheet 4 · Urban space: radiation load on the hottest day of last summer, with trees and three markers](docs/4-urban-space.png)
 
 Every sheet can be exported as a PNG or as a WebM film over the day or the
 year, always with a footer of place, time, sun position, scale and sheet —
@@ -59,7 +85,8 @@ qualifies. The caveats come from the data contract, not from Umbra's code:
   uphill; the slope as a shadow caster is missing.
 - **Heights.** Building heights are measured where OpenStreetMap has a
   `height`, otherwise derived from the number of storeys, otherwise assumed at
-  8 m. Umbra shows the breakdown for the buildings (not the building parts,
+  8 m. Buildings that Nolli adds from Overture Maps carry a height estimated
+  from aerial imagery and are counted as estimated, not measured. Umbra shows the breakdown for the buildings (not the building parts,
   which flatter the figure): in the starter package 116 measured, 129 from
   storeys, 93 assumed — 28 % of the buildings but 44 % of the footprint area.
 - **Sheet 1** measures on the façade, not at the window centre inside as the
@@ -87,6 +114,13 @@ If the package has `model_outside.obj` (the parts of buildings beyond the
 frame edge), Umbra loads it too: those parts are invisible but still cast
 shadows into the frame. The `terrain` and `trees` bodies are always dropped:
 Umbra has its own ground and draws its trees from `data/trees.json`.
+
+The contract also carries the **time zone** of the site, and Umbra computes
+the sun in that local time. Older packages without it get their zone from
+Open-Meteo; offline, Umbra falls back to a zone from the longitude and says
+so. Buildings added from **Overture Maps** are loaded like all others and
+credited under the licence line; Overture places (`data/places.json`) are not
+used.
 
 Both contract versions are read. Nolli writes **contract v2** since 14 October
 2026 (`"contract": "nolli", "contract_version": 2`, English field and file

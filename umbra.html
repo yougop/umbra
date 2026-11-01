@@ -228,6 +228,15 @@ a { color:var(--akzent); text-underline-offset:2px; text-decoration-thickness:1p
 .sprach-wahl .trenn { color:var(--linie-stark); }
 .sprach-wahl + .schema-knopf { margin-left:var(--reihe); }
 
+/* Anleitung: dieselbe Bauform wie bei Nolli — ein leiser Textlink vor der
+   Sprachwahl, kein Knopf. Er führt hinaus (README auf GitHub), und ein
+   Knopf versprächte eine Handlung in Umbra. */
+.anleitung {
+  flex-shrink:0; margin-left:var(--teil);
+  font-size:12px; color:var(--tinte-2); white-space:nowrap; text-decoration:none;
+}
+.anleitung:hover { color:var(--tinte); text-decoration:underline; text-underline-offset:3px; }
+
 /* ─── Fläche: Register · Bühne · Schiene ────────────────── */
 .flaeche {
   display:grid;
@@ -939,6 +948,8 @@ input[type="file"] { position:absolute; width:1px; height:1px; opacity:0; pointe
       </div>
     </div>
 
+    <a class="anleitung" href="https://github.com/yougop/umbra#readme" target="_blank" rel="noopener"
+       title="Was Umbra rechnet und wo die Grenzen liegen. README auf GitHub, auf Englisch." data-t-title="kopf.anleitungTitel" data-t="kopf.anleitung">Anleitung</a>
     <div class="sprach-wahl" id="sprach-wahl" role="group" aria-label="Sprache" data-t-aria="kopf.spracheAria">
       <button type="button" data-sprache="de" lang="de" aria-pressed="true" aria-label="Deutsch">DE</button><span class="trenn" aria-hidden="true">|</span><button type="button" data-sprache="en" lang="en" aria-pressed="false" aria-label="English">EN</button>
     </div>
@@ -1240,6 +1251,8 @@ const de = {
     fest: 'laut Datenvertrag',
     breiteLaenge: 'Breite · Länge',
     sonne: 'Sonne',
+    anleitung: 'Anleitung',
+    anleitungTitel: 'Was Umbra rechnet und wo die Grenzen liegen. README auf GitHub, auf Englisch.',
     schemaTitel: 'Helles oder dunkles Schema',
     schemaAria: 'Zwischen hellem und dunklem Schema wechseln',
     spracheAria: 'Sprache',
@@ -1634,6 +1647,8 @@ const en = {
     fest: 'per data contract',
     breiteLaenge: 'Lat · Lon',
     sonne: 'Sun',
+    anleitung: 'Read me',
+    anleitungTitel: 'What Umbra computes and where its limits are. README on GitHub.',
     schemaTitel: 'Light or dark scheme',
     schemaAria: 'Switch between light and dark scheme',
     spracheAria: 'Language',
