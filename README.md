@@ -123,8 +123,10 @@ credited under the licence line; Overture places (`data/places.json`) are not
 used.
 
 Both contract versions are read. Nolli writes **contract v2** since 14 October
-2026 (`"contract": "nolli", "contract_version": 2`, English field and file
-names); Umbra maps it back onto the v1 names it computes with. The mapping
+2026 (`"contract_version": 2`, English field and file names); Umbra maps it
+back onto the v1 names it computes with. The contract is called **UCX**
+(Urban Context Exchange): newer packages say `"contract": "ucx"`, older ones
+`"contract": "nolli"`, and Umbra reads both. The mapping
 table `NOLLI_V2` in `umbra.html` is generated from Nolli's
 [`vertrag.ts`](https://github.com/yougop/nolli/blob/main/werkzeug/src/lib/vertrag.ts)
 and checked by Nolli's `pruefung/vertrag.mjs` against this file — it is not

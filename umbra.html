@@ -2451,9 +2451,15 @@ function nolliAufV1(w, feld = '') {
   return w;
 }
 
+// Der Vertrag heißt seit dem 04.11.2026 UCX („Urban Context Exchange"), mit
+// `contract: "ucx"` statt `"nolli"`. Inhalt und Version bleiben gleich, ältere
+// Pakete tragen weiter `"nolli"` und werden genauso gelesen.
+const VERTRAG_KENNUNGEN = new Set(['nolli', 'ucx']);
+const istV2Vertrag = (v) => !!v && VERTRAG_KENNUNGEN.has(v.contract);
+
 // Den Vertrag zurückführen, falls er v2 ist. Ein v1-Vertrag bleibt, wie er ist.
 function nolliVertragV1(v) {
-  if (!v || v.contract !== 'nolli' || v.contract_version !== 2) return v;
+  if (!istV2Vertrag(v) || v.contract_version !== 2) return v;
   const { contract, contract_version, ...rest } = v;
   return { nolli: '1', ...nolliAufV1(rest) };
 }
@@ -2542,7 +2548,7 @@ function nolliPaketV1(hol, namen) {
     if (blob && n.endsWith('.obj')) return new Blob([nolliObjEben(await blob.text())], { type: 'model/obj' });
     if (!blob || !n.endsWith('.json')) return blob;
     const j = JSON.parse(await blob.text());
-    const aus = j && j.contract === 'nolli' ? nolliVertragV1(j) : nolliAufV1(j);
+    const aus = istV2Vertrag(j) ? nolliVertragV1(j) : nolliAufV1(j);
     return new Blob([JSON.stringify(aus)], { type: 'application/json' });
   };
   // `original` führt einen zurückgeführten Namen auf den im Paket zurück –
