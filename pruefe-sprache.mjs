@@ -133,7 +133,7 @@ server.close();
 const erlaubt = /HafenCity|Hamburg|frame\.json|\.obj|\.webp|DIN 5034|Ladybug|Open-Meteo|Lawson|NEN 8100/g;
 const verdacht = /[äöüßÄÖÜ]|\b(und|der|die|das|nicht|mit|frei|keine?|Blatt|Blätter|Sonne|Rechnung|rechnen|Gebäude|Bäume|Darstellung|Ausgabe|zurück|laden|Laden|Stand|Uhr|Tag|Jahr|Höhe|Paket|Datenvertrag|Ergebnis|Ausschnitt|Einstellung)\b/;
 const reste = [...texte].filter(x => verdacht.test(x.replace(erlaubt, '')));
-const englischImDeutschen = ['Sheet', 'Load Nolli package', 'Compute', 'Search', 'Export', 'Caveats']
+const englischImDeutschen = ['Sheet', 'Load UCX package', 'Compute', 'Search', 'Export', 'Caveats']
   .filter(w => deutsch.includes(w));
 
 fs.writeFileSync(path.join(ziel, 'texte.txt'), [...texte].join('\n'));

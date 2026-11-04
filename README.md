@@ -29,7 +29,7 @@ irradiation.
 ## Using it
 
 Umbra opens with a starter package already loaded: HafenCity, Hamburg. Your own
-site comes in as a Nolli package (see below).
+site comes in as a UCX package from Nolli (see below).
 
 - **Sheets** on the left, or keys **1–4**. Each sheet asks one question; the
   panel on the right holds its settings, its result and what it does not show.
@@ -65,7 +65,7 @@ so a state can be linked.
 Every sheet can be exported as a PNG or as a WebM film over the day or the
 year, always with a footer of place, time, sun position, scale and sheet —
 without it, an image is no proof. The **tile for the package** matches the
-resolution and frame of the Nolli package exactly, so it lies congruently on
+resolution and frame of the UCX package exactly, so it lies congruently on
 Nolli's own images.
 
 ## What it does not compute
@@ -97,13 +97,14 @@ qualifies. The caveats come from the data contract, not from Umbra's code:
 - **Sheet 4** is radiation, not temperature: air temperature, wind at
   pedestrian height and heat stored in paving are not included.
 - **Clock.** Times are the local time of the site, from the time zone in the
-  Nolli package (or looked up at Open-Meteo for older packages).
+  UCX package (or looked up at Open-Meteo for older packages).
 
-## Loading a Nolli package
+## Loading a UCX package
 
 1. Make a package in [Nolli](https://zinssmeister.info/app/nolli/):
-   frame → clean up → export → **Package** (ZIP).
-2. In Umbra, **Load Nolli package** and pick the ZIP — or **Choose folder**
+   frame → clean up → export → **Package** (ZIP). Its files start with
+   `UCX_` (older ones with `nolli_`).
+2. In Umbra, **Load UCX package** and pick the ZIP — or **Choose folder**
    for an unpacked one.
 
 Umbra reads `frame.json` first: it sets location, frame, scale and

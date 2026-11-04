@@ -988,7 +988,7 @@ input[type="file"] { position:absolute; width:1px; height:1px; opacity:0; pointe
                ersetzen", zwei Zentimeter tiefer. Derselbe Grund wie beim
                gestrichenen Untertitel darüber. -->
           <button class="hauptaktion" id="paket-laden" style="margin-top:var(--block)">
-            <span class="ring"></span><span class="schrift" data-t="modell.paketLaden">Nolli-Paket laden</span><span class="zaehler"></span>
+            <span class="ring"></span><span class="schrift" data-t="modell.paketLaden">UCX-Paket laden</span><span class="zaehler"></span>
           </button>
           <!-- Ein Knopf für beides ginge nicht: Der Browser öffnet für Dateien
                und für Ordner zwei verschiedene Dialoge, und welchen er zeigt,
@@ -1267,7 +1267,7 @@ const de = {
     taste: (name, n) => `${name} – Taste ${n}`,
   },
   modell: {
-    paketLaden: 'Nolli-Paket laden',
+    paketLaden: 'UCX-Paket laden',
     liest: 'Liest das Paket …',
     ausgepackt: 'Ausgepacktes Paket?',
     ordnerWaehlen: 'Ordner wählen',
@@ -1421,7 +1421,7 @@ const de = {
   },
   darstellung: {
     titel: 'Darstellung',
-    nurEine: 'Dieses Paket bringt nur eine Darstellung mit. Ein volles Nolli-Paket legt mehrere im selben Rahmen bei – Schwarzplan, Linie, Aufsicht und weitere; dann steht die Wahl über dem Zeichenfeld.',
+    nurEine: 'Dieses Paket bringt nur eine Darstellung mit. Ein volles UCX-Paket legt mehrere im selben Rahmen bei – Schwarzplan, Linie, Aufsicht und weitere; dann steht die Wahl über dem Zeichenfeld.',
     ohneBauten: (n) => `${n} ohne Bauten`,
     namen: {
       schwarzplan: 'Schwarzplan', invertiert: 'Invertiert', linie: 'Linie', nutzung: 'Nutzung',
@@ -1663,7 +1663,7 @@ const en = {
     taste: (name, n) => `${name} – key ${n}`,
   },
   modell: {
-    paketLaden: 'Load Nolli package',
+    paketLaden: 'Load UCX package',
     liest: 'Reading the package …',
     ausgepackt: 'Unpacked package?',
     ordnerWaehlen: 'Choose folder',
@@ -1817,7 +1817,7 @@ const en = {
   },
   darstellung: {
     titel: 'Style',
-    nurEine: 'This package brings only one style. A full Nolli package includes several in the same frame – figure-ground, line, top view and more; the choice then appears above the drawing area.',
+    nurEine: 'This package brings only one style. A full UCX package includes several in the same frame – figure-ground, line, top view and more; the choice then appears above the drawing area.',
     ohneBauten: (n) => `${n} without buildings`,
     namen: {
       schwarzplan: 'Figure-ground', invertiert: 'Inverted', linie: 'Line', nutzung: 'Use',
@@ -7913,11 +7913,14 @@ function danebenMelden() {
   const vorher = kasten.innerHTML;
   kasten.dataset.mahnt = 'true';
   kasten.innerHTML = tx.feld.keinKoerper;
+  // Zurückgestellt wird nur derselbe Kasten. Trifft der nächste Klick
+  // innerhalb der drei Sekunden, ist die Tafel neu gezeichnet und trägt das
+  // Ergebnis; der alte Text darüber hieße wieder „Marker einschalten“.
   danebenUhr = setTimeout(() => {
-    if (!$('urteil-sonne')) return;
-    $('urteil-sonne').removeAttribute('data-mahnt');
-    $('urteil-sonne').innerHTML = vorher;
     danebenUhr = null;
+    if ($('urteil-sonne') !== kasten) return;
+    kasten.removeAttribute('data-mahnt');
+    kasten.innerHTML = vorher;
   }, 3000);
 }
 
